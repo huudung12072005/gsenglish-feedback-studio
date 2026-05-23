@@ -1,3 +1,4 @@
+
 ```html
 <!doctype html>
 <html lang="en">
@@ -43,9 +44,7 @@
       line-height: 1.5;
     }
 
-    button, input, textarea, select {
-      font: inherit;
-    }
+    button, input, textarea, select { font: inherit; }
 
     button {
       border: 1px solid var(--line);
@@ -58,15 +57,8 @@
     }
 
     button:hover { background: #f8fafc; border-color: #cbd5e1; }
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.45;
-    }
-    button.primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-    }
+    button:disabled { cursor: not-allowed; opacity: 0.45; }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
     button.danger { color: #be123c; background: #fff1f2; border-color: #fecdd3; }
     button.icon { width: 40px; padding: 8px; font-weight: 800; border-radius: 12px; }
 
@@ -79,21 +71,10 @@
       padding: 9px 10px;
     }
 
-    input[type="checkbox"] {
-      width: auto;
-      accent-color: var(--accent);
-    }
-
+    input[type="checkbox"] { width: auto; accent-color: var(--accent); }
     textarea { min-height: 80px; resize: vertical; }
-
-    .app-shell {
-      min-height: 100vh;
-    }
-
-    header {
-      background: transparent;
-      position: static;
-    }
+    .app-shell { min-height: 100vh; }
+    header { background: transparent; position: static; }
 
     .topbar {
       max-width: 1280px;
@@ -107,30 +88,11 @@
       box-shadow: var(--shadow);
     }
 
-    .title-row, .toolbar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .title-row {
-      gap: 14px;
-    }
-
-    .title-row .brand {
-      margin-right: auto;
-    }
-
-    .toolbar {
-      padding-top: 4px;
-    }
-
-    .header-actions {
-      justify-content: flex-start;
-      align-items: stretch;
-      gap: 12px;
-    }
+    .title-row, .toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .title-row { gap: 14px; }
+    .title-row .brand { margin-right: auto; }
+    .toolbar { padding-top: 4px; }
+    .header-actions { justify-content: flex-start; align-items: stretch; gap: 12px; }
 
     .header-actions .toolbar-group {
       border: 1px solid var(--line);
@@ -149,425 +111,73 @@
       text-transform: uppercase;
     }
 
-    .import-actions {
-      background: #f8fafc;
-      border-color: #dbe3ee;
-    }
+    .import-actions { background: #f8fafc; border-color: #dbe3ee; }
+    .session-actions { background: #eef2ff; border-color: #c7d2fe; }
+    .session-actions button { border-color: #a5b4fc; }
+    .export-actions { background: #ecfdf5; border-color: #bbf7d0; }
+    .export-actions button { border-color: #86efac; background: #f0fdf4; }
+    .export-actions button.primary { background: #166534; border-color: #166534; color: #fff; }
+    .title-export-actions { margin-left: auto; padding: 10px; border: 1px solid #bbf7d0; border-radius: 20px; gap: 8px; }
+    .title-export-actions .toolbar-label { color: #166534; }
+    .app-actions { background: #fff7ed; border-color: #fed7aa; }
+    .app-actions button { background: #fffbeb; border-color: #fbbf24; color: #92400e; font-weight: 700; }
 
-    .session-actions {
-      background: #eef2ff;
-      border-color: #c7d2fe;
-    }
+    .brand { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; margin-right: auto; }
+    .brand::before { content: "Writing teacher feedback tool"; display: table; width: fit-content; margin-bottom: 10px; border-radius: 999px; background: #f1f5f9; color: #475569; padding: 4px 12px; font-size: 14px; line-height: 1.4; font-weight: 700; letter-spacing: 0; }
+    .brand::after { content: "Use Editing mode to paste and format writing. Use Suggesting mode to track teacher additions in green and student deletions in red."; display: block; margin-top: 8px; max-width: 760px; color: var(--muted); font-size: 16px; line-height: 1.5; font-weight: 500; letter-spacing: 0; }
 
-    .session-actions button {
-      border-color: #a5b4fc;
-    }
-
-    .export-actions {
-      background: #ecfdf5;
-      border-color: #bbf7d0;
-    }
-
-    .export-actions button {
-      border-color: #86efac;
-      background: #f0fdf4;
-    }
-
-    .export-actions button.primary {
-      background: #166534;
-      border-color: #166534;
-      color: #fff;
-    }
-
-    .title-export-actions {
-      margin-left: auto;
-      padding: 10px;
-      border: 1px solid #bbf7d0;
-      border-radius: 20px;
-      gap: 8px;
-    }
-
-    .title-export-actions .toolbar-label {
-      color: #166534;
-    }
-
-    .app-actions {
-      background: #fff7ed;
-      border-color: #fed7aa;
-    }
-
-    .app-actions button {
-      background: #fffbeb;
-      border-color: #fbbf24;
-      color: #92400e;
-      font-weight: 700;
-    }
-
-    .brand {
-      font-size: clamp(28px, 4vw, 40px);
-      line-height: 1.1;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      margin-right: auto;
-    }
-
-    .brand::before {
-      content: "Writing teacher feedback tool";
-      display: table;
-      width: fit-content;
-      margin-bottom: 10px;
-      border-radius: 999px;
-      background: #f1f5f9;
-      color: #475569;
-      padding: 4px 12px;
-      font-size: 14px;
-      line-height: 1.4;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-
-    .brand::after {
-      content: "Use Editing mode to paste and format writing. Use Suggesting mode to track teacher additions in green and student deletions in red.";
-      display: block;
-      margin-top: 8px;
-      max-width: 760px;
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.5;
-      font-weight: 500;
-      letter-spacing: 0;
-    }
-
-    .mode-toggle {
-      display: inline-grid;
-      grid-template-columns: 1fr 1fr;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .mode-toggle button {
-      border: 0;
-      border-radius: 0;
-      min-width: 128px;
-      font-weight: 800;
-    }
-
-    .mode-toggle button.active {
-      background: #0f172a;
-      color: #fff;
-    }
-
-    #suggestingMode.active {
-      background: var(--green);
-    }
-
-    .editor-mode-toggle button {
-      min-width: 104px;
-    }
-
-    .toolbar-group {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding-right: 8px;
-    }
+    .mode-toggle { display: inline-grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: #fff; }
+    .mode-toggle button { border: 0; border-radius: 0; min-width: 128px; font-weight: 800; }
+    .mode-toggle button.active { background: #0f172a; color: #fff; }
+    #suggestingMode.active { background: var(--green); }
+    .editor-mode-toggle button { min-width: 104px; }
+    .toolbar-group { display: flex; align-items: center; gap: 6px; padding-right: 8px; }
     .toolbar-group:last-child { border-right: 0; }
 
-    main {
-      max-width: 1280px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 12px 16px 32px;
-      display: grid;
-      grid-template-columns: 360px minmax(0, 1fr);
-      gap: 24px;
-    }
+    main { max-width: 1280px; width: 100%; margin: 0 auto; padding: 12px 16px 32px; display: grid; grid-template-columns: 360px minmax(0, 1fr); gap: 24px; }
+    .sidebar { display: grid; align-content: start; gap: 16px; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 20px; box-shadow: var(--shadow); }
+    .panel h2 { font-size: 18px; margin: 0 0 16px; letter-spacing: 0; }
+    .editor-help { flex: 1 1 100%; order: 2; margin: -2px 0 2px; padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 16px; background: #f8fafc; }
+    .editor-help h2 { margin: 0 0 6px; color: #334155; font-size: 14px; }
+    .editor-help ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 18px; margin: 0; padding-left: 18px; color: #475569; font-size: 13px; line-height: 1.45; }
+    .editor-tools > .toolbar-group, .editor-tools > .statusbar { order: 3; }
 
-    .sidebar {
-      display: grid;
-      align-content: start;
-      gap: 16px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-    }
-
-    .panel h2 {
-      font-size: 18px;
-      margin: 0 0 16px;
-      letter-spacing: 0;
-    }
-
-    .editor-help {
-      flex: 1 1 100%;
-      order: 2;
-      margin: -2px 0 2px;
-      padding: 10px 12px;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      background: #f8fafc;
-    }
-
-    .editor-help h2 {
-      margin: 0 0 6px;
-      color: #334155;
-      font-size: 14px;
-    }
-
-    .editor-help ol {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 4px 18px;
-      margin: 0;
-      padding-left: 18px;
-      color: #475569;
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .editor-tools > .toolbar-group,
-    .editor-tools > .statusbar {
-      order: 3;
-    }
-
-    .app-footer {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 24px 28px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    .app-footer p {
-      margin: 0;
-    }
-
-    .app-footer a {
-      color: #1d4ed8;
-      font-weight: 700;
-      overflow-wrap: anywhere;
-    }
-
-    .score-panel {
-      display: grid;
-      gap: 12px;
-      border-color: #fca5a5;
-      background: linear-gradient(180deg, #ffffff 0%, #fff7f7 100%);
-    }
-
-    .score-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .score-head h2 {
-      margin: 0;
-    }
-
-    .band-total {
-      margin-left: auto;
-      border-radius: 14px;
-      background: #b91c1c;
-      color: #fff;
-      border: 1px solid #991b1b;
-      padding: 8px 12px;
-      font-size: 15px;
-      font-weight: 800;
-      white-space: nowrap;
-      box-shadow: 0 8px 18px rgba(185, 28, 28, .18);
-    }
-
-    .score-note {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .score-grid {
-      display: grid;
-      gap: 10px;
-    }
-
-    .score-field {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 92px;
-      gap: 8px;
-      align-items: center;
-      color: #334155;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .score-field select {
-      border-radius: 12px;
-      padding: 7px 8px;
-    }
+    .score-panel { display: grid; gap: 12px; border-color: #fca5a5; background: linear-gradient(180deg, #ffffff 0%, #fff7f7 100%); }
+    .score-head { display: flex; align-items: center; gap: 10px; }
+    .score-head h2 { margin: 0; }
+    .band-total { margin-left: auto; border-radius: 14px; background: #b91c1c; color: #fff; border: 1px solid #991b1b; padding: 8px 12px; font-size: 15px; font-weight: 800; white-space: nowrap; box-shadow: 0 8px 18px rgba(185, 28, 28, .18); }
+    .score-note { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .score-grid { display: grid; gap: 10px; }
+    .score-field { display: grid; grid-template-columns: minmax(0, 1fr) 92px; gap: 8px; align-items: center; color: #334155; font-size: 13px; font-weight: 700; }
+    .score-field select { border-radius: 12px; padding: 7px 8px; }
 
     .field { margin-bottom: 10px; }
-    .field label {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
+    .field label { display: block; color: var(--muted); font-size: 12px; margin-bottom: 4px; }
+    .checkbox-field { display: flex; align-items: center; gap: 9px; color: #334155; font-size: 14px; font-weight: 700; }
 
-    .checkbox-field {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      color: #334155;
-      font-size: 14px;
-      font-weight: 700;
-    }
+    .image-preview { border: 1px dashed #aab3c1; border-radius: 18px; min-height: 128px; display: grid; place-items: center; overflow: hidden; background: #fafafa; color: var(--muted); font-size: 13px; text-align: center; padding: 10px; }
+    .image-preview img { width: 100%; height: auto; display: block; border-radius: 16px; }
 
-    .image-preview {
-      border: 1px dashed #aab3c1;
-      border-radius: 18px;
-      min-height: 128px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      background: #fafafa;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
-      padding: 10px;
-    }
+    .workspace { min-width: 0; display: grid; gap: 16px; align-content: start; }
+    .statusbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; min-height: 28px; margin-left: auto; white-space: nowrap; }
+    .canvas { background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); padding: 20px; display: grid; gap: 16px; }
+    .editor-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 1px solid var(--line); }
+    .writing-shell { display: grid; gap: 16px; align-items: start; }
 
-    .image-preview img {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 16px;
-    }
+    .feedback-reference { border: 1px solid var(--line); border-radius: 20px; background: #f8fafc; padding: 14px; }
+    .feedback-reference h2 { margin: 0 0 10px; font-size: 15px; }
+    .feedback-reference .legend { gap: 7px; }
 
-    .workspace {
-      min-width: 0;
-      display: grid;
-      gap: 16px;
-      align-content: start;
-    }
+    .teacher-comments { display: none; border: 1px solid var(--line); border-radius: 20px; background: #fff; padding: 14px; }
+    .comments-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .comments-head h2 { margin: 0; font-size: 15px; }
+    .comments-head span { margin-left: auto; color: var(--muted); font-size: 13px; font-weight: 700; }
+    .comment-list { display: grid; gap: 10px; }
+    .empty-comments { margin: 0; border: 1px dashed #cbd5e1; border-radius: 14px; padding: 14px; color: var(--muted); font-size: 13px; line-height: 1.5; }
 
-    .statusbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 14px;
-      min-height: 28px;
-      margin-left: auto;
-      white-space: nowrap;
-    }
-
-    .canvas {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 20px;
-      display: grid;
-      gap: 16px;
-    }
-
-    .editor-tools {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .writing-shell {
-      display: grid;
-      gap: 16px;
-      align-items: start;
-    }
-
-    .feedback-reference {
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: #f8fafc;
-      padding: 14px;
-    }
-
-    .feedback-reference h2 {
-      margin: 0 0 10px;
-      font-size: 15px;
-    }
-
-    .feedback-reference .legend {
-      gap: 7px;
-    }
-
-    .teacher-comments {
-      display: none;
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      background: #fff;
-      padding: 14px;
-    }
-
-    .comments-head {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .comments-head h2 {
-      margin: 0;
-      font-size: 15px;
-    }
-
-    .comments-head span {
-      margin-left: auto;
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .comment-list {
-      display: grid;
-      gap: 10px;
-    }
-
-    .empty-comments {
-      margin: 0;
-      border: 1px dashed #cbd5e1;
-      border-radius: 14px;
-      padding: 14px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .comment-card {
-      border: 1px solid var(--line);
-      border-left-width: 5px;
-      border-radius: 16px;
-      background: #fff;
-      padding: 12px;
-      display: grid;
-      gap: 9px;
-    }
-
-    .comment-card.active {
-      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
-    }
-
+    .comment-card { border: 1px solid var(--line); border-left-width: 5px; border-radius: 16px; background: #fff; padding: 12px; display: grid; gap: 9px; }
+    .comment-card.active { box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08); }
     .comment-card.type-grammar { border-style: solid; }
     .comment-card.type-vocabulary { border-style: dashed; }
     .comment-card.type-spelling { border-style: dotted; }
@@ -576,53 +186,12 @@
     .comment-card.type-style { border-style: dashed dotted; }
     .comment-card.type-idea { border-style: double dotted; }
 
-    .comment-card-head {
-      display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .comment-index {
-      width: 30px;
-      min-height: 30px;
-      padding: 0;
-      border-radius: 999px;
-      background: #f8fafc;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .comment-card select,
-    .comment-card textarea {
-      border-radius: 12px;
-      font-size: 13px;
-    }
-
-    .comment-card textarea {
-      min-height: 72px;
-      line-height: 1.45;
-    }
-
-    .comment-target {
-      color: #475569;
-      font-size: 13px;
-      line-height: 1.45;
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 8px 10px;
-    }
-
-    .comment-remove {
-      min-height: 30px;
-      padding: 4px 9px;
-      border-radius: 999px;
-      color: #be123c;
-      background: #fff1f2;
-      border-color: #fecdd3;
-      font-size: 12px;
-      font-weight: 700;
-    }
+    .comment-card-head { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+    .comment-index { width: 30px; min-height: 30px; padding: 0; border-radius: 999px; background: #f8fafc; font-size: 13px; font-weight: 800; }
+    .comment-card select, .comment-card textarea { border-radius: 12px; font-size: 13px; }
+    .comment-card textarea { min-height: 72px; line-height: 1.45; }
+    .comment-target { color: #475569; font-size: 13px; line-height: 1.45; background: #f8fafc; border-radius: 12px; padding: 8px 10px; }
+    .comment-remove { min-height: 30px; padding: 4px 9px; border-radius: 999px; color: #be123c; background: #fff1f2; border-color: #fecdd3; font-size: 12px; font-weight: 700; }
 
     .comment-card.type-grammar { border-color: var(--grammar-border); }
     .comment-card.type-vocabulary { border-color: var(--vocabulary-border); }
@@ -633,97 +202,23 @@
     .comment-card.type-punctuation { border-color: var(--punctuation-border); }
     .comment-card.type-idea { border-color: var(--idea-border); }
 
-    .content-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 24px;
-      align-items: start;
-    }
+    .content-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+    .content-layout.with-image.image-left { grid-template-columns: minmax(260px, 42%) minmax(0, 1fr); }
+    .prompt-image img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 8px; }
 
-    .content-layout.with-image.image-left {
-      grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
-    }
+    .editor { position: relative; isolation: isolate; min-height: 620px; outline: 0; font-size: 18px; line-height: 1.9; padding: 24px; overflow-wrap: anywhere; overflow: hidden; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 24px; }
+    .editor > * { position: relative; z-index: 1; }
+    .editor:focus { border-color: #cbd5e1; box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2); }
+    body.suggesting-active .editor { border-color: #86efac; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16); }
+    .editor:empty::before { content: "Paste or type the student writing here."; color: #98a2b3; }
 
-    .prompt-image img {
-      width: 100%;
-      display: block;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-    }
+    .suggest-add { color: #16a34a; white-space: pre-wrap; }
+    .suggest-add.composition-add { outline: 1px dotted #16a34a; outline-offset: 2px; }
+    .suggest-delete { color: #dc2626; text-decoration: line-through; text-decoration-thickness: 2px; background: #fef2f2; white-space: pre-wrap; }
 
-    .editor {
-      position: relative;
-      isolation: isolate;
-      min-height: 620px;
-      outline: 0;
-      font-size: 18px;
-      line-height: 1.9;
-      padding: 24px;
-      overflow-wrap: anywhere;
-      overflow: hidden;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 24px;
-    }
-
-    .editor > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .editor:focus {
-      border-color: #cbd5e1;
-      box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
-    }
-
-    body.suggesting-active .editor {
-      border-color: #86efac;
-      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
-    }
-
-    .editor:empty::before {
-      content: "Paste or type the student writing here.";
-      color: #98a2b3;
-    }
-
-    .suggest-add {
-      color: #16a34a;
-      white-space: pre-wrap;
-    }
-
-    .suggest-add.composition-add {
-      outline: 1px dotted #16a34a;
-      outline-offset: 2px;
-    }
-
-    .suggest-delete {
-      color: #dc2626;
-      text-decoration: line-through;
-      text-decoration-thickness: 2px;
-      background: #fef2f2;
-      white-space: pre-wrap;
-    }
-
-    .feedback-node {
-      border: 1px solid currentColor;
-      border-bottom-width: 2px;
-      border-radius: 5px;
-      padding: 1px 3px;
-      cursor: pointer;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-    }
-
-    .feedback-node.comment-active {
-      outline: 3px solid rgba(15, 23, 42, 0.18);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 1px #fff, 0 2px 10px rgba(15, 23, 42, 0.16);
-    }
-
-    ::highlight(pending-feedback-selection) {
-      background: rgba(147, 197, 253, 0.58);
-      color: inherit;
-    }
+    .feedback-node { border: 1px solid currentColor; border-bottom-width: 2px; border-radius: 5px; padding: 1px 3px; cursor: pointer; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .feedback-node.comment-active { outline: 3px solid rgba(15, 23, 42, 0.18); outline-offset: 2px; box-shadow: 0 0 0 1px #fff, 0 2px 10px rgba(15, 23, 42, 0.16); }
+    ::highlight(pending-feedback-selection) { background: rgba(147, 197, 253, 0.58); color: inherit; }
 
     .feedback-node.fb-grammar { border-style: solid; }
     .feedback-node.fb-vocabulary { border-style: dashed; }
@@ -733,29 +228,9 @@
     .feedback-node.fb-style { border-style: dashed dotted; }
     .feedback-node.fb-idea { border-style: double dotted; }
 
-    .comment-marker {
-      display: inline-block;
-      margin-left: 2px;
-      color: currentColor;
-      font-size: 0.64em;
-      font-weight: 800;
-      line-height: 1;
-      vertical-align: super;
-    }
-
-    .legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .legend .feedback-node {
-      border: 1px solid currentColor;
-      border-bottom-width: 3px;
-      padding: 5px 9px;
-      font-size: 13px;
-      font-weight: 700;
-    }
+    .comment-marker { display: inline-block; margin-left: 2px; color: currentColor; font-size: 0.64em; font-weight: 800; line-height: 1; vertical-align: super; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; }
+    .legend .feedback-node { border: 1px solid currentColor; border-bottom-width: 3px; padding: 5px 9px; font-size: 13px; font-weight: 700; }
 
     .fb-grammar { background: var(--grammar-bg); color: #1d4ed8; border-color: var(--grammar-border); }
     .fb-vocabulary { background: var(--vocabulary-bg); color: #92400e; border-color: var(--vocabulary-border); }
@@ -766,130 +241,31 @@
     .fb-punctuation { background: var(--punctuation-bg); color: #0e7490; border-color: var(--punctuation-border); }
     .fb-idea { background: var(--idea-bg); color: #3f6212; border-color: var(--idea-border); }
 
-    .feedback-node.fb-grammar,
-    .legend .fb-grammar,
-    .fb-grammar,
-    .comment-card.type-grammar {
-      border-style: dotted;
-      background-image: radial-gradient(rgba(15, 23, 42, 0.28) 1px, transparent 1.4px);
-      background-size: 6px 6px;
-    }
-
+    .feedback-node.fb-grammar, .legend .fb-grammar, .fb-grammar, .comment-card.type-grammar { border-style: dotted; background-image: radial-gradient(rgba(15, 23, 42, 0.28) 1px, transparent 1.4px); background-size: 6px 6px; }
     .comment-card.type-grammar { background-color: var(--grammar-bg); }
-
-    .feedback-node.fb-vocabulary,
-    .legend .fb-vocabulary,
-    .fb-vocabulary,
-    .comment-card.type-vocabulary {
-      border-style: solid;
-      background-image: repeating-linear-gradient(135deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px);
-    }
-
+    .feedback-node.fb-vocabulary, .legend .fb-vocabulary, .fb-vocabulary, .comment-card.type-vocabulary { border-style: solid; background-image: repeating-linear-gradient(135deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px); }
     .comment-card.type-vocabulary { background-color: var(--vocabulary-bg); }
-
-    .feedback-node.fb-spelling,
-    .legend .fb-spelling,
-    .fb-spelling,
-    .comment-card.type-spelling {
-      border-style: dashed;
-      background-image:
-        repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px),
-        repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px);
-    }
-
+    .feedback-node.fb-spelling, .legend .fb-spelling, .fb-spelling, .comment-card.type-spelling { border-style: dashed; background-image: repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px), repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px); }
     .comment-card.type-spelling { background-color: var(--spelling-bg); }
-
-    .feedback-node.fb-coherence,
-    .legend .fb-coherence,
-    .fb-coherence,
-    .comment-card.type-coherence {
-      border-style: double;
-      background-image: repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.13) 0 2px, transparent 2px 9px);
-    }
-
+    .feedback-node.fb-coherence, .legend .fb-coherence, .fb-coherence, .comment-card.type-coherence { border-style: double; background-image: repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.13) 0 2px, transparent 2px 9px); }
     .comment-card.type-coherence { background-color: var(--coherence-bg); }
-
-    .feedback-node.fb-task,
-    .legend .fb-task,
-    .fb-task,
-    .comment-card.type-task {
-      border-style: solid;
-      border-width: 2px;
-      background-image: none;
-    }
-
+    .feedback-node.fb-task, .legend .fb-task, .fb-task, .comment-card.type-task { border-style: solid; border-width: 2px; background-image: none; }
     .comment-card.type-task { background-color: var(--task-bg); }
-
-    .feedback-node.fb-style,
-    .legend .fb-style,
-    .fb-style,
-    .comment-card.type-style {
-      border-style: dashed;
-      background-image: repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px);
-    }
-
+    .feedback-node.fb-style, .legend .fb-style, .fb-style, .comment-card.type-style { border-style: dashed; background-image: repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px); }
     .comment-card.type-style { background-color: var(--style-bg); }
-
-    .feedback-node.fb-idea,
-    .legend .fb-idea,
-    .fb-idea,
-    .comment-card.type-idea {
-      border-style: solid;
-      background-image:
-        radial-gradient(circle at 2px 2px, rgba(15, 23, 42, 0.2) 1px, transparent 1.6px),
-        radial-gradient(circle at 8px 8px, rgba(15, 23, 42, 0.16) 1px, transparent 1.6px);
-      background-size: 12px 12px;
-    }
-
+    .feedback-node.fb-idea, .legend .fb-idea, .fb-idea, .comment-card.type-idea { border-style: solid; background-image: radial-gradient(circle at 2px 2px, rgba(15, 23, 42, 0.2) 1px, transparent 1.6px), radial-gradient(circle at 8px 8px, rgba(15, 23, 42, 0.16) 1px, transparent 1.6px); background-size: 12px 12px; }
     .comment-card.type-idea { background-color: var(--idea-bg); }
 
-    .feedback-popover {
-      position: fixed;
-      width: min(320px, calc(100vw - 24px));
-      max-height: min(480px, calc(100vh - 24px));
-      overflow: auto;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 12px;
-      z-index: 100;
-      display: none;
-    }
-
+    .feedback-popover { position: fixed; width: min(320px, calc(100vw - 24px)); max-height: min(480px, calc(100vh - 24px)); overflow: auto; background: #fff; border: 1px solid var(--line); border-radius: 24px; box-shadow: var(--shadow); padding: 12px; z-index: 100; display: none; }
     .feedback-popover.open { display: block; }
     .feedback-popover h3 { margin: 0 0 8px; font-size: 14px; }
-    .quick-notes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin: 8px 0;
-    }
+    .quick-notes { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
     .quick-notes button { font-size: 12px; min-height: 30px; }
+    .popover-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    .popover-actions .danger { margin-left: auto; }
 
-    .popover-actions {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .popover-actions .danger {
-      margin-left: auto;
-    }
-
-    .backup-links {
-      display: none;
-      gap: 8px;
-      flex-wrap: wrap;
-      font-size: 13px;
-      padding: 10px;
-      border: 1px solid #bfdbfe;
-      background: #eff6ff;
-      border-radius: 16px;
-    }
+    .backup-links { display: none; gap: 8px; flex-wrap: wrap; font-size: 13px; padding: 10px; border: 1px solid #bfdbfe; background: #eff6ff; border-radius: 16px; }
     .backup-links.open { display: flex; }
-
     .hidden { display: none !important; }
 
     @media (max-width: 980px) {
@@ -900,7 +276,7 @@
     }
 
     @media print {
-      header, .sidebar, .editor-tools, .feedback-reference, .feedback-popover, .app-footer { display: none !important; }
+      header, .sidebar, .editor-tools, .feedback-reference, .feedback-popover { display: none !important; }
       main { display: block; padding: 0; }
       .canvas { border: 0; box-shadow: none; }
     }
@@ -944,15 +320,15 @@
           <h2>1. Assignment details</h2>
           <div class="field">
             <label for="docTitle">Title</label>
-            <input id="docTitle" value="Writing Feedback">
+            <input id="docTitle" value="Writing Feedback" style="width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 10px; font-size: 13px;">
           </div>
           <div class="field">
             <label for="studentName">Student name</label>
-            <input id="studentName" placeholder="Student name" value="">
+            <input id="studentName" placeholder="Student name" style="width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 10px; font-size: 13px;">
           </div>
           <div class="field">
             <label for="taskPrompt">Task prompt</label>
-            <textarea id="taskPrompt" placeholder="Paste the writing task or teacher note."></textarea>
+            <textarea id="taskPrompt" placeholder="Paste the writing task or teacher note." style="width: 100%; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 10px; font-size: 13px; min-height: 80px;"></textarea>
           </div>
         </section>
 
@@ -1046,15 +422,28 @@
             </aside>
             <aside class="feedback-reference">
               <h2>Feedback types</h2>
-              <div class="legend">
-                <span class="feedback-node fb-grammar">Grammar</span>
-                <span class="feedback-node fb-vocabulary">Vocabulary</span>
-                <span class="feedback-node fb-spelling">Spelling</span>
-                <span class="feedback-node fb-coherence">Coherence</span>
-                <span class="feedback-node fb-task">Task response/achievement</span>
-                <span class="feedback-node fb-style">Style</span>
-                <span class="feedback-node fb-idea">Idea</span>
+              <p style="font-size: 12px; color: #64748b; margin: -6px 0 10px 0;">Click on any category badge below to customize its name, quick notes, or delete it.</p>
+              <div class="legend"></div>
+              
+              <!-- Khung điều chỉnh thông số nhóm lỗi -->
+              <div id="categoryEditPanel" style="display: none; margin-top: 14px; padding: 14px; border: 1px solid var(--line); border-radius: 16px; background: #fff; box-shadow: 0 4px 12px rgba(15,23,42,0.04); box-sizing: border-box;">
+                <h3 style="margin: 0 0 10px; font-size: 13px; font-weight: 700; color: #0f172a;">Edit category: <span id="editCategoryTargetName" style="color: #1d4ed8;">Grammar</span></h3>
+                <input type="hidden" id="editCategoryId">
+                <div class="field" style="margin-bottom: 10px;">
+                  <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #64748b;">Category Name</label>
+                  <input type="text" id="editCategoryName" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px;">
+                </div>
+                <div class="field" style="margin-bottom: 12px;">
+                  <label style="display: block; font-size: 11px; font-weight: 600; margin-bottom: 4px; color: #64748b;">Quick Notes (separated by commas)</label>
+                  <textarea id="editCategoryNotes" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; min-height: 60px; line-height: 1.4; font-family: inherit;"></textarea>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                  <button type="button" id="saveCategoryBtn" class="primary" style="background: #0f172a; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;">Save</button>
+                  <button type="button" id="cancelCategoryEditBtn" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; background: white; cursor: pointer;">Cancel</button>
+                  <button type="button" id="deleteCategoryBtn" class="danger" style="color: #be123c; background: #fff1f2; border: 1px solid #fecdd3; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; margin-left: auto;">Delete</button>
+                </div>
               </div>
+
             </aside>
           </div>
         </div>
@@ -1066,9 +455,9 @@
     <h3 id="feedbackPopoverTitle">Add feedback</h3>
     <div class="field">
       <label for="feedbackType">Type</label>
-      <select id="feedbackType"><option value="grammar" selected="">Grammar</option><option value="vocabulary">Vocabulary</option><option value="spelling">Spelling</option><option value="coherence">Coherence</option><option value="task">Task response/achievement</option><option value="style">Style</option><option value="idea">Idea development</option></select>
+      <select id="feedbackType"></select>
     </div>
-    <div class="quick-notes" id="quickNotes"><button type="button" data-note="Subject-verb agreement">Subject-verb agreement</button><button type="button" data-note="Verb tense">Verb tense</button><button type="button" data-note="Sentence structure">Sentence structure</button><button type="button" data-note="Comma or punctuation issue">Comma or punctuation issue</button></div>
+    <div class="quick-notes" id="quickNotes"></div>
     <div class="field">
       <label for="feedbackNote">Explanation</label>
       <textarea id="feedbackNote" placeholder="Write the explanation students should see."></textarea>
@@ -1107,7 +496,18 @@
       const scoreGrid = document.getElementById("scoreGrid");
       const overallBand = document.getElementById("overallBand");
 
-      const feedbackTypes = [
+      // Bảng điều khiển chỉnh sửa nhanh lỗi
+      const categoryEditPanel = document.getElementById("categoryEditPanel");
+      const editCategoryTargetName = document.getElementById("editCategoryTargetName");
+      const editCategoryId = document.getElementById("editCategoryId");
+      const editCategoryName = document.getElementById("editCategoryName");
+      const editCategoryNotes = document.getElementById("editCategoryNotes");
+      const saveCategoryBtn = document.getElementById("saveCategoryBtn");
+      const cancelCategoryEditBtn = document.getElementById("cancelCategoryEditBtn");
+      const deleteCategoryBtn = document.getElementById("deleteCategoryBtn");
+
+      // 1. CẤU HÌNH NHÓM LỖI MẶC ĐỊNH
+      const defaultFeedbackTypes = [
         ["grammar", "Grammar", ["Subject-verb agreement", "Verb tense", "Sentence structure", "Comma or punctuation issue"]],
         ["vocabulary", "Vocabulary", ["More precise word needed", "Awkward collocation", "Repeated word"]],
         ["spelling", "Spelling", ["Check spelling", "Capitalization", "Word form"]],
@@ -1116,8 +516,33 @@
         ["style", "Style", ["Too informal", "Make this more concise", "Academic tone"]],
         ["idea", "Idea development", ["Explain why", "Add example", "Clarify this idea"]]
       ];
-      const feedbackTypeAliases = { punctuation: "grammar" };
-      const feedbackClassIds = [...feedbackTypes.map(([id]) => id), ...Object.keys(feedbackTypeAliases)];
+
+      // 2. KHỞI TẠO HOẶC TẢI CẤU HÌNH LỖI TỪ LOCALSTORAGE
+      let feedbackTypes = [];
+      const savedConfig = localStorage.getItem("customFeedbackConfig");
+
+      if (savedConfig) {
+        try {
+          feedbackTypes = JSON.parse(savedConfig);
+        } catch (e) {
+          feedbackTypes = JSON.parse(JSON.stringify(defaultFeedbackTypes));
+        }
+      } else {
+        feedbackTypes = JSON.parse(JSON.stringify(defaultFeedbackTypes));
+      }
+
+      // 3. HÀM LƯU CẤU HÌNH LỖI VÀO TRÌNH DUYỆT (LOCALSTORAGE)
+      function saveFeedbackConfig() {
+        localStorage.setItem("customFeedbackConfig", JSON.stringify(feedbackTypes));
+        renderFeedbackTypeSelect();
+        renderSidebarLegend();
+        syncFeedbackStyles();
+        renderTeacherComments();
+        updateFeedbackClassIds();
+      }
+
+      let feedbackTypeAliases = { punctuation: "grammar" };
+      let feedbackClassIds = [...feedbackTypes.map(([id]) => id), ...Object.keys(feedbackTypeAliases)];
       const scoreCriteria = [
         ["task", "Task response/achievement"],
         ["coherence", "Coherence and cohesion"],
@@ -1143,10 +568,6 @@
       let pendingFeedbackHighlightRange = null;
       const pendingFeedbackHighlightName = "pending-feedback-selection";
 
-      feedbackType.innerHTML = feedbackTypes.map(([id, label]) => `<option value="${id}">${escapeHtml(label)}</option>`).join("");
-      renderScoreInputs();
-      renderQuickNotes();
-
       function setMode(nextMode) {
         closeTypingUndoGroup();
         mode = nextMode;
@@ -1160,6 +581,13 @@
       function updateWordCount() {
         const words = editor.innerText.trim().split(/\s+/).filter(Boolean).length;
         wordCount.textContent = `${words} ${words === 1 ? "word" : "words"}`;
+      }
+
+      // Hàm đồng bộ và lưu các thẻ ID class lỗi động vào danh sách theo dõi khi có cập nhật
+      function updateFeedbackClassIds() {
+        feedbackClassIds.length = 0;
+        feedbackTypes.forEach(([id]) => feedbackClassIds.push(id));
+        Object.keys(feedbackTypeAliases).forEach(alias => feedbackClassIds.push(alias));
       }
 
       function updateUndoButton() {
@@ -1223,7 +651,7 @@
 
       function renderQuickNotes() {
         const current = feedbackTypes.find(([id]) => id === feedbackType.value) || feedbackTypes[0];
-        quickNotes.innerHTML = current[2].map(note => `<button type="button" data-note="${escapeAttr(note)}">${escapeHtml(note)}</button>`).join("");
+        quickNotes.innerHTML = current ? current[2].map(note => `<button type="button" data-note="${escapeAttr(note)}">${escapeHtml(note)}</button>`).join("") : "";
       }
 
       function canonicalFeedbackType(type) {
@@ -1512,14 +940,6 @@
         return range;
       }
 
-      // Hàm đóng gói mã UTF-8 và mã Base64 tương thích cao
-      function utoa(str) {
-        return window.btoa(String.fromCharCode(...new TextEncoder().encode(str)));
-      }
-      function atou(base64) {
-        return new TextDecoder().decode(Uint8Array.from(window.atob(base64), c => c.charCodeAt(0)));
-      }
-
       function placeCaretAfter(node) {
         const range = document.createRange();
         range.setStartAfter(node);
@@ -1647,6 +1067,14 @@
       function syncChangeEditableState(element) {
         if (!element?.dataset?.change) return;
         element.contentEditable = element.dataset.change === "addition" ? "true" : "false";
+      }
+
+      // Hàm đóng gói mã UTF-8 và mã Base64 tương thích cao
+      function utoa(str) {
+        return window.btoa(String.fromCharCode(...new TextEncoder().encode(str)));
+      }
+      function atou(base64) {
+        return new TextDecoder().decode(Uint8Array.from(window.atob(base64), c => c.charCodeAt(0)));
       }
 
       function indexOfNode(node) {
@@ -2065,6 +1493,60 @@
         return deleteRangeAsSuggestion(targetRange, direction) || true;
       }
 
+      // Hàm tìm màu sắc / viền theo id loại lỗi tùy biến
+      function getCategoryTheme(id) {
+        const defaults = {
+          grammar: { bg: "#dbeafe", border: "#60a5fa", color: "#1d4ed8", borderStyle: "dotted" },
+          vocabulary: { bg: "#fef3c7", border: "#f59e0b", color: "#92400e", borderStyle: "solid" },
+          spelling: { bg: "#ffedd5", border: "#fb923c", color: "#9a3412", borderStyle: "dashed" },
+          coherence: { bg: "#ede9fe", border: "#a78bfa", color: "#6d28d9", borderStyle: "double" },
+          task: { bg: "#cffafe", border: "#0891b2", color: "#0e7490", borderStyle: "solid" },
+          style: { bg: "#f1f5f9", border: "#64748b", color: "#334155", borderStyle: "dashed" },
+          idea: { bg: "#ecfccb", border: "#84cc16", color: "#3f6212", borderStyle: "solid" }
+        };
+        if (defaults[id]) return defaults[id];
+        
+        // Tạo màu sắc động cho các nhóm tự tạo bằng cách xoay vòng các bảng màu customColorThemes
+        const idx = Math.abs(hashCode(id)) % customColorThemes.length;
+        return customColorThemes[idx];
+      }
+
+      function hashCode(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return hash;
+      }
+
+      function renderFeedbackTypeSelect() {
+        feedbackType.innerHTML = feedbackTypes.map(([id, label]) => `<option value="${id}">${escapeHtml(label)}</option>`).join("");
+      }
+
+      function renderSidebarLegend() {
+        const legend = document.querySelector(".feedback-reference .legend");
+        if (!legend) return;
+        legend.innerHTML = feedbackTypes.map(([id, label]) => `<span class="feedback-node fb-${id}" data-category-id="${id}">${escapeHtml(label)}</span>`).join("");
+      }
+
+      // Tạo style rules động để tệp soạn thảo trực tiếp hiển thị màu sắc và viền của các loại lỗi tùy chọn mới
+      function syncFeedbackStyles() {
+        feedbackTypes.forEach(([id]) => {
+          const styleId = `dynamic-style-${id}`;
+          if (document.getElementById(styleId)) return;
+          
+          const theme = getCategoryTheme(id);
+          const styleEl = document.createElement("style");
+          styleEl.id = styleId;
+          styleEl.textContent = `
+            .fb-${id} { background: ${theme.bg} !important; color: ${theme.color} !important; border-color: ${theme.border} !important; border-style: ${theme.borderStyle} !important; }
+            .legend .fb-${id} { background: ${theme.bg} !important; color: ${theme.color} !important; border-color: ${theme.border} !important; border-style: ${theme.borderStyle} !important; cursor:pointer !important; }
+            .comment-card.type-${id} { border-color: ${theme.border} !important; background-color: ${theme.bg} !important; border-style: ${theme.borderStyle} !important; }
+          `;
+          document.head.appendChild(styleEl);
+        });
+      }
+
       function isImeKey(event) {
         return event.isComposing || event.key === "Process" || event.key === "Dead" || event.keyCode === 229;
       }
@@ -2385,11 +1867,11 @@
           studentName: document.getElementById("studentName").value,
           taskPrompt: document.getElementById("taskPrompt").value,
           taskImage,
-          includeWatermark: false,
           scores: getBandScores(),
           layout: layoutSelect.value,
           mode,
-          editorHtml: utoa(sanitizeEditorHtml(editor.innerHTML))
+          editorHtml: utoa(sanitizeEditorHtml(editor.innerHTML)),
+          feedbackTypes: feedbackTypes
         };
       }
 
@@ -2401,6 +1883,16 @@
         taskImage = session.taskImage || "";
         layoutSelect.value = session.layout || "image-left";
         
+        // Nạp và khôi phục các nhóm lỗi tùy biến nếu có từ tệp session
+        if (session.feedbackTypes) {
+          feedbackTypes.length = 0;
+          session.feedbackTypes.forEach(item => feedbackTypes.push(item));
+          renderSidebarLegend();
+          renderFeedbackTypeSelect();
+          syncFeedbackStyles();
+          saveFeedbackConfig();
+        }
+
         let rawHtml = session.editorHtml || "";
         if (rawHtml && !rawHtml.includes("<p>") && !rawHtml.includes("<span>")) {
           try {
@@ -2496,12 +1988,12 @@
       }
 
       function nearestStaticCommentBlock(node) {
-        let current = node.parentElement;
+        let current = node.parentNode;
         while (current) {
           if (isBlockNode(current)) return current;
-          current = current.parentElement;
+          current = current.parentNode;
         }
-        return node.parentElement;
+        return node.parentNode;
       }
 
       function buildStaticFeedback(sourceHtml) {
@@ -2554,16 +2046,16 @@
         const textColors = { grammar: "#1d4ed8", vocabulary: "#92400e", spelling: "#9a3412", coherence: "#6d28d9", task: "#0e7490", style: "#334155", idea: "#3f6212" };
 
         const cards = comments.map(comment => {
-          const bg = bgColors[comment.type] || "#f1f5f9";
-          const border = borderStyles[comment.type] || "solid";
-          const color = textColors[comment.type] || "#334155";
+          const matchedTheme = getCategoryTheme(comment.type);
+          const bg = matchedTheme ? matchedTheme.bg : (bgColors[comment.type] || "#f1f5f9");
+          const color = matchedTheme ? matchedTheme.color : (textColors[comment.type] || "#334155");
           return `
-            <li class="comment-card" id="${comment.domId}" style="border: 1px solid ${color}!important; border-left-width: 5px!important; border-style: ${border}!important; border-radius: 10px!important; padding: 10px 12px!important; margin-bottom: 10px!important; background-color: ${bg}!important; list-style: none!important; box-sizing: border-box!important; transition: all 0.2s ease-in-out;">
-              <strong style="display: flex!important; align-items: center!important; gap: 8px!important; margin-bottom: 6px!important; font-size: 13px!important; line-height: 1.25!important; color: ${color}!important;">
-                <span style="display: grid!important; place-items: center!important; min-width: 26px!important; height: 26px!important; border-radius: 999px!important; background: #111827!important; color: #fff!important; border: 2px solid #fff!important; box-shadow: 0 1px 4px rgba(15,23,42,.22)!important; font-size: 12px!important; font-weight: 900!important;">${comment.number}</span>
-                ${escapeHtml(comment.label)}
+            <li class="comment-card" id="${comment.domId}" style="border: 1px solid #e2e8f0!important; border-left: 6px solid ${color}!important; border-radius: 12px!important; padding: 14px 16px!important; margin-bottom: 12px!important; background-color: ${bg}!important; list-style: none!important; box-sizing: border-box!important; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02)!important;">
+              <strong style="display: flex!important; align-items: center!important; gap: 10px!important; margin-bottom: 8px!important; font-size: 13px!important; font-weight: 700!important; color: #0f172a!important; letter-spacing: -0.01em!important;">
+                <span style="display: grid!important; place-items: center!important; min-width: 24px!important; height: 24px!important; border-radius: 50%!important; background: #0f172a!important; color: #fff!important; font-size: 11px!important; font-weight: 900!important;">${comment.number}</span>
+                <span style="color: ${color}!important;">${escapeHtml(comment.label)}</span>
               </strong>
-              <p style="margin: 0!important; color: #1f2937!important; font-size: 13px!important; line-height: 1.45!important; font-weight: normal!important;">${escapeHtml(comment.note)}</p>
+              <p style="margin: 0!important; color: #334155!important; font-size: 13px!important; line-height: 1.5!important; font-weight: 500!important;">${escapeHtml(comment.note)}</p>
             </li>
           `;
         }).join("");
@@ -2594,15 +2086,13 @@
         const processedTemplate = document.createElement("div");
         processedTemplate.innerHTML = staticFeedback.writingHtml;
         
-        const styleRules = {
-          "fb-grammar": "background: #dbeafe!important; color: #1d4ed8!important; border: 1px dotted #60a5fa!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-vocabulary": "background: #fef3c7!important; color: #92400e!important; border: 1px solid #f59e0b!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-spelling": "background: #ffedd5!important; color: #9a3412!important; border: 1px dashed #fb923c!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-coherence": "background: #ede9fe!important; color: #6d28d9!important; border: 1px double #a78bfa!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-task": "background: #cffafe!important; color: #0e7490!important; border: 2px solid #0891b2!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-style": "background: #f1f5f9!important; color: #334155!important; border: 1px dashed #64748b!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
-          "fb-idea": "background: #ecfccb!important; color: #3f6212!important; border: 1px solid #84cc16!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;"
-        };
+        const styleRules = {};
+        feedbackTypes.forEach(([id]) => {
+          const theme = getCategoryTheme(id);
+          if (theme) {
+            styleRules[`fb-${id}`] = `background: ${theme.bg}!important; color: ${theme.color}!important; border: 1px ${theme.borderStyle} ${theme.border}!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;`;
+          }
+        });
 
         processedTemplate.querySelectorAll(".feedback-node").forEach(node => {
           let matchedClass = Array.from(node.classList).find(cls => styleRules[cls]);
@@ -2619,25 +2109,6 @@
           node.setAttribute("style", "color: #dc2626!important; text-decoration: line-through!important; text-decoration-thickness: 2px!important; background: #fef2f2!important; white-space: pre-wrap!important;");
         });
 
-        // Thiết lập hai cột song song (Side-by-side) khi có nhận xét
-        const layoutStructureHtml = staticFeedback.commentsHtml ? `
-          <div class="moodle-student-layout" style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
-            <!-- Cột viết của học sinh (Bên trái) -->
-            <article class="writing" style="flex: 1; min-width: 320px; background: #fff; border: 1px solid #d9dee7; border-radius: 12px; padding: 28px 24px; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; min-height: 380px; position: relative; box-sizing: border-box;">
-              <div class="writing-content" style="position: relative; z-index: 1;">${processedTemplate.innerHTML}</div>
-            </article>
-            
-            <!-- Cột nhận xét (Bên phải, rộng 320px) -->
-            <div class="moodle-comments-column" style="width: 320px; flex-shrink: 0; box-sizing: border-box;">
-              ${staticFeedback.commentsHtml}
-            </div>
-          </div>
-        ` : `
-          <article class="writing" style="width: 100%; background: #fff; border: 1px solid #d9dee7; border-radius: 12px; padding: 28px 24px; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; min-height: 380px; position: relative; box-sizing: border-box;">
-            <div class="writing-content" style="position: relative; z-index: 1;">${processedTemplate.innerHTML}</div>
-          </article>
-        `;
-
         const hoverInteractionScript = staticFeedback.commentsHtml ? `
           <script>
             (function() {
@@ -2650,17 +2121,25 @@
                 if (!card) return;
 
                 node.addEventListener('mouseenter', function() {
+                  // Lưu giữ màu nền gốc
+                  card.dataset.origBg = card.style.backgroundColor;
+                  card.dataset.origBorderColor = card.style.borderColor;
+
+                  card.style.backgroundColor = '#fffbeb'; // Phát sáng vàng nhạt mềm mại
+                  card.style.borderColor = '#f59e0b';
                   card.style.transform = 'translateY(-3px)';
-                  card.style.boxShadow = '0 0 0 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.12)';
-                  card.style.borderColor = '#0f172a';
-                  node.style.filter = 'brightness(0.92)';
+                  card.style.boxShadow = '0 10px 25px rgba(245, 158, 11, 0.12)';
+                  node.style.outline = '3px solid #f59e0b';
+                  node.style.outlineOffset = '2px';
                 });
 
                 node.addEventListener('mouseleave', function() {
+                  card.style.backgroundColor = card.dataset.origBg || '';
+                  card.style.borderColor = card.dataset.origBorderColor || '';
                   card.style.transform = '';
                   card.style.boxShadow = '';
-                  card.style.borderColor = '';
-                  node.style.filter = '';
+                  node.style.outline = '';
+                  node.style.outlineOffset = '';
                 });
               });
 
@@ -2671,11 +2150,16 @@
 
                 card.addEventListener('mouseenter', function() {
                   matchedNodes.forEach(function(node) {
-                    node.style.outline = '3px solid rgba(15, 23, 42, 0.18)';
+                    node.style.outline = '3px solid #f59e0b';
                     node.style.outlineOffset = '2px';
                   });
+                  card.dataset.origBg = card.style.backgroundColor;
+                  card.dataset.origBorderColor = card.style.borderColor;
+
+                  card.style.backgroundColor = '#fffbeb';
+                  card.style.borderColor = '#f59e0b';
                   card.style.transform = 'translateY(-3px)';
-                  card.style.boxShadow = '0 0 0 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.12)';
+                  card.style.boxShadow = '0 10px 25px rgba(245, 158, 11, 0.12)';
                 });
 
                 card.addEventListener('mouseleave', function() {
@@ -2683,50 +2167,82 @@
                     node.style.outline = '';
                     node.style.outlineOffset = '';
                   });
+                  card.style.backgroundColor = card.dataset.origBg || '';
+                  card.style.borderColor = card.dataset.origBorderColor || '';
                   card.style.transform = '';
                   card.style.boxShadow = '';
                 });
 
-                // Nhấp vào thẻ nhận xét sẽ cuộn màn hình đến phần viết tương ứng
                 card.addEventListener('click', function() {
                   matchedNodes[0].scrollIntoView({ block: 'center', behavior: 'smooth' });
                 });
               });
             })();
-          <\/script>
+          </` + `script>
         ` : '';
 
-        return `
-          <div class="student-export-root" style="max-width: 1180px; margin: 0 auto; padding: 20px; background: #f6f7f9; color: #1f2937; font-family: Arial, Helvetica, sans-serif; line-height: 1.65; border-radius: 16px; border: 1px solid #d9dee7; box-sizing: border-box;">
-            <section class="header" style="margin-bottom: 18px; border-bottom: 2px solid #d9dee7; padding-bottom: 10px;">
-              <h1 style="margin: 0 0 6px; font-size: 26px; line-height: 1.2; color: #0f172a; font-weight: bold;">${escapeHtml(session.title || "Writing Feedback")}</h1>
-              <div class="meta" style="color: #667085; font-size: 14px; font-weight: bold;">${session.studentName ? `Student: ${escapeHtml(session.studentName)}` : ""}</div>
-            </section>
-            
-            ${session.taskPrompt ? `<section class="prompt" style="white-space: pre-wrap; background: #fff; border: 1px solid #d9dee7; border-radius: 10px; padding: 14px 16px; margin: 14px 0; font-size: 14px; color: #334155; box-sizing: border-box;"><strong>Task Prompt:</strong><br>${escapeHtml(session.taskPrompt)}</section>` : ""}
-            
-            ${buildScoreSummaryHtml(session.scores || {})}
-            
-            <div class="content-body-stack" style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
-              ${hasImage ? `<div class="task-image" style="display: flex; justify-content: center; background: #fff; padding: 10px; border: 1px solid #d9dee7; border-radius: 10px; box-sizing: border-box;"><img src="${escapeAttr(session.taskImage)}" alt="Visual Prompt" style="max-width: 100%; height: auto; object-fit: contain; border-radius: 6px;"></div>` : ""}
-              
-              <div class="writing-stack" style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
-                <div class="legend" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px;">
-                  ${feedbackTypes.map(([id, label]) => `<span class="fb-${id}" style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; font-weight: bold; ${styleRules['fb-' + id]}">${escapeHtml(label)}</span>`).join("")}
-                </div>
-                
-                ${layoutStructureHtml}
-              </div>
+        return `<!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>${escapeHtml(session.title || "Writing Feedback")}</title>
+  </head>
+  <body style="margin: 0; background: #f6f7f9; padding: 20px; font-family: Arial, sans-serif;">
+    <div class="student-export-root" style="max-width: 1180px; margin: 0 auto; padding: 20px; background: #f6f7f9; color: #1f2937; font-family: Arial, Helvetica, sans-serif; line-height: 1.6; border-radius: 16px; border: 1px solid #d9dee7; box-sizing: border-box;">
+      <table style="width: 100%; border-collapse: collapse; margin-bottom: 14px;">
+        <tr>
+          <td style="padding: 0 0 10px 0; border-bottom: 2px solid #d9dee7;">
+            <h1 style="margin: 0 0 4px; font-size: 24px; color: #0f172a; font-weight: bold;">${escapeHtml(session.title || "Writing Feedback")}</h1>
+            <div style="color: #667085; font-size: 13px; font-weight: bold;">${session.studentName ? `Student: ${escapeHtml(session.studentName)}` : ""}</div>
+          </td>
+        </tr>
+      </table>
+      
+      ${session.taskPrompt ? `<div style="white-space: pre-wrap; background: #fff; border: 1px solid #d9dee7; border-radius: 10px; padding: 14px; margin: 12px 0; font-size: 13px; color: #334155; box-sizing: border-box;"><strong>Task Prompt:</strong><br>${escapeHtml(session.taskPrompt)}</div>` : ""}
+      
+      ${buildScoreSummaryHtml(session.scores || {})}
+      
+      ${hasImage ? `<div style="text-align: center; background: #fff; padding: 10px; border: 1px solid #d9dee7; border-radius: 10px; margin-bottom: 16px; box-sizing: border-box;"><img src="${escapeAttr(session.taskImage)}" style="max-width: 100%; height: auto; border-radius: 6px;"></div>` : ""}
+
+      <div style="margin-bottom: 10px; display: block;">
+        ${feedbackTypes.map(([id, label]) => `<span class="fb-${id}" style="display: inline-block; margin: 0 4px 6px 0; border-radius: 6px; padding: 3px 6px; font-size: 11px; font-weight: bold; ${styleRules['fb-' + id]}">${escapeHtml(label)}</span>`).join("")}
+      </div>
+
+      <!-- Layout 2 cột cứng bằng TABLE tuyệt đối an toàn với bộ lọc Moodle -->
+      <table style="width: 100%; border-collapse: collapse; align-items: start;" cell-padding="0" cell-spacing="0">
+        <tr>
+          <td valign="top" style="padding: 0; width: 63%;">
+            <article class="writing" style="background: #fff; border: 1px solid #d9dee7; border-radius: 12px; padding: 24px; font-size: 16px; line-height: 1.8; min-height: 380px; margin-right: 16px; box-sizing: border-box; position: relative; overflow-wrap: anywhere;">
+              <div class="writing-content" style="position: relative; z-index: 1;">${processedTemplate.innerHTML}</div>
+            </article>
+          </td>
+          <td valign="top" style="padding: 0; width: 37%;">
+            <div class="moodle-comments-column" style="padding: 0 0 0 4px; box-sizing: border-box;">
+              ${staticFeedback.commentsHtml}
             </div>
-          </div>
-          ${hoverInteractionScript}
-        `;
+          </td>
+        </tr>
+      </table>
+      
+    </div>
+    ${hoverInteractionScript}
+  </body>
+  </html>`;
       }
 
       function exportStudentHtml() {
         const studentHtml = buildStudentDocument("html");
-        const title = document.getElementById("docTitle").value || "Writing Feedback";
-        const filename = slugify(title || "writing-feedback") + "-student.html";
+        
+        // Trích xuất Tên học sinh và Tiêu đề bài viết
+        const rawTitle = document.getElementById("docTitle").value || "Writing Feedback";
+        const rawName = document.getElementById("studentName").value || "student";
+        
+        // Đặt tên file theo cú pháp tên-học-sinh_tiêu-đề-bài-viết.html
+        const cleanName = slugify(rawName);
+        const cleanTitle = slugify(rawTitle);
+        const filename = `${cleanName}_${cleanTitle}.html`;
+
         downloadFile(filename, "text/html;charset=utf-8", studentHtml);
         showMessage("Student HTML exported");
       }
@@ -2736,6 +2252,8 @@
         let rawHtml = session.editorHtml || "";
         if (rawHtml.substring(0, 3) === "%3C") { rawHtml = window.decodeURIComponent(rawHtml); } else { try { rawHtml = atou(rawHtml); } catch(e) {} }
         const staticFeedback = buildStaticFeedback(rawHtml);
+
+        const rawTitle = session.title || "Writing Feedback";
         
         const pdfHtml = `<!doctype html>
         <html>
@@ -2762,7 +2280,7 @@
 
         const printWindow = window.open("", "_blank");
         if (!printWindow) {
-          downloadFile(slugify(title) + "-printable-pdf.html", "text/html;charset=utf-8", pdfHtml);
+          downloadFile(slugify(rawTitle) + "-printable-pdf.html", "text/html;charset=utf-8", pdfHtml);
           showMessage("Popup blocked. Downloaded printable PDF HTML instead.");
           return;
         }
@@ -2809,7 +2327,7 @@
       }
 
       function slugify(value) {
-        return String(value).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "writing-feedback";
+        return String(value).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "feedback";
       }
 
       editingMode.addEventListener("click", () => setMode("editing"));
@@ -3005,6 +2523,230 @@
         if (!feedbackPopover.contains(event.target)) hideFeedbackPopover();
       });
 
+      // --- CẤU HÌNH NHÓM LỖI TÙY CHỈNH ---
+      
+      const customColorThemes = [
+        { id: "purple", bg: "#faf5ff", border: "#a855f7", color: "#9333ea", borderStyle: "double" },
+        { id: "teal", bg: "#f0fdfa", border: "#2dd4bf", color: "#0d9488", borderStyle: "solid" },
+        { id: "pink", bg: "#fdf2f8", border: "#f472b6", color: "#db2777", borderStyle: "dashed" },
+        { id: "rose", bg: "#fff1f2", border: "#fb7185", color: "#e11d48", borderStyle: "dotted" },
+        { id: "indigo", bg: "#e0e7ff", border: "#818cf8", color: "#4338ca", borderStyle: "solid" },
+        { id: "amber", bg: "#fef3c7", border: "#fbbf24", color: "#d97706", borderStyle: "dashed" },
+        { id: "emerald", bg: "#ecfdf5", border: "#34d399", color: "#059669", borderStyle: "solid" },
+        { id: "slate", bg: "#f8fafc", border: "#94a3b8", color: "#475569", borderStyle: "dotted" }
+      ];
+
+      // Hàm tìm màu sắc / viền theo id loại lỗi tùy biến
+      function getCategoryTheme(id) {
+        const defaults = {
+          grammar: { bg: "#dbeafe", border: "#60a5fa", color: "#1d4ed8", borderStyle: "dotted" },
+          vocabulary: { bg: "#fef3c7", border: "#f59e0b", color: "#92400e", borderStyle: "solid" },
+          spelling: { bg: "#ffedd5", border: "#fb923c", color: "#9a3412", borderStyle: "dashed" },
+          coherence: { bg: "#ede9fe", border: "#a78bfa", color: "#6d28d9", borderStyle: "double" },
+          task: { bg: "#cffafe", border: "#0891b2", color: "#0e7490", borderStyle: "solid" },
+          style: { bg: "#f1f5f9", border: "#64748b", color: "#334155", borderStyle: "dashed" },
+          idea: { bg: "#ecfccb", border: "#84cc16", color: "#3f6212", borderStyle: "solid" }
+        };
+        if (defaults[id]) return defaults[id];
+        
+        // Tạo màu sắc động cho các nhóm tự tạo bằng cách xoay vòng các bảng màu customColorThemes
+        const idx = Math.abs(hashCode(id)) % customColorThemes.length;
+        return customColorThemes[idx];
+      }
+
+      function hashCode(str) {
+        let hash = 0;
+        for (let i = 0; i < str.length; i++) {
+          hash = str.charCodeAt(i) + ((hash << 5) - hash);
+        }
+        return hash;
+      }
+
+      function renderFeedbackTypeSelect() {
+        feedbackType.innerHTML = feedbackTypes.map(([id, label]) => `<option value="${id}">${escapeHtml(label)}</option>`).join("");
+      }
+
+      function renderSidebarLegend() {
+        const legend = document.querySelector(".feedback-reference .legend");
+        if (!legend) return;
+        legend.innerHTML = feedbackTypes.map(([id, label]) => `<span class="feedback-node fb-${id}" data-category-id="${id}">${escapeHtml(label)}</span>`).join("");
+      }
+
+      // Tạo style rules động để tệp soạn thảo trực tiếp hiển thị màu sắc và viền của các loại lỗi tùy chọn mới
+      function syncFeedbackStyles() {
+        feedbackTypes.forEach(([id]) => {
+          const styleId = `dynamic-style-${id}`;
+          if (document.getElementById(styleId)) return;
+          
+          const theme = getCategoryTheme(id);
+          const styleEl = document.createElement("style");
+          styleEl.id = styleId;
+          styleEl.textContent = `
+            .fb-${id} { background: ${theme.bg} !important; color: ${theme.color} !important; border-color: ${theme.border} !important; border-style: ${theme.borderStyle} !important; }
+            .legend .fb-${id} { background: ${theme.bg} !important; color: ${theme.color} !important; border-color: ${theme.border} !important; border-style: ${theme.borderStyle} !important; cursor:pointer !important; }
+            .comment-card.type-${id} { border-color: ${theme.border} !important; background-color: ${theme.bg} !important; border-style: ${theme.borderStyle} !important; }
+          `;
+          document.head.appendChild(styleEl);
+        });
+      }
+
+      // Thêm nút "+ Add custom type" vào bảng Feedback types
+      function initCustomTypeCreator() {
+        const refAside = document.querySelector(".feedback-reference");
+        if (!refAside) return;
+
+        const wrapper = document.createElement("div");
+        wrapper.style.cssText = "margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; gap: 8px;";
+        
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.id = "addCustomTypeBtn";
+        btn.textContent = "+ Add custom feedback type";
+        btn.style.cssText = "flex: 1; font-size:13px; font-weight:bold; background:#f8fafc; border:1px dashed #cbd5e1; border-radius:12px; padding:8px 14px; cursor:pointer; color:var(--accent);";
+        
+        btn.addEventListener("click", () => {
+          const name = window.prompt("Enter custom category name (e.g., Articles, Pronouns):");
+          if (!name || !name.trim()) return;
+          
+          const cleanName = name.trim();
+          const id = cleanName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+          
+          if (feedbackTypes.some(([existingId]) => existingId === id)) {
+            window.alert("This feedback category already exists.");
+            return;
+          }
+
+          const notesInput = window.prompt("Enter quick notes separated by commas (optional):", "Missing category note, Incorrect usage");
+          const quickNotesArr = notesInput ? notesInput.split(",").map(n => n.trim()).filter(Boolean) : ["Check this point"];
+
+          feedbackTypes.push([id, cleanName, quickNotesArr]);
+          feedbackClassIds.push(id);
+          
+          saveFeedbackConfig();
+          showMessage(`Added "${cleanName}" category`);
+        });
+
+        const resetBtn = document.createElement("button");
+        resetBtn.type = "button";
+        resetBtn.id = "resetCategoriesBtn";
+        resetBtn.textContent = "Reset";
+        resetBtn.style.cssText = "font-size:12px; font-weight:bold; background:#fff1f2; border:1px solid #fecdd3; color:#be123c; border-radius:12px; padding:8px 12px; cursor:pointer;";
+        
+        resetBtn.addEventListener("click", () => {
+          const isConfirm = window.confirm("Are you sure you want to reset all categories back to default IELTS configuration? This will clear custom categories.");
+          if (!isConfirm) return;
+
+          // Xóa dynamic styles cũ của custom categories
+          feedbackTypes.forEach(([id]) => {
+            const styleEl = document.getElementById(`dynamic-style-${id}`);
+            if (styleEl) styleEl.remove();
+          });
+
+          feedbackTypes.length = 0;
+          JSON.parse(JSON.stringify(defaultFeedbackTypes)).forEach(item => feedbackTypes.push(item));
+          
+          saveFeedbackConfig();
+          showMessage("Reset categories to default");
+        });
+
+        wrapper.appendChild(btn);
+        wrapper.appendChild(resetBtn);
+        refAside.appendChild(wrapper);
+      }
+
+      // Trình xử lý Click vào Badge trong Legend để đổi tên, Quick Notes hoặc Xóa lỗi
+      function initCategoryLegendListener() {
+        const legend = document.querySelector(".feedback-reference .legend");
+        if (!legend) return;
+
+        legend.addEventListener("click", event => {
+          const badge = event.target.closest("[data-category-id]");
+          if (!badge) return;
+
+          const categoryId = badge.getAttribute("data-category-id");
+          const matchedIndex = feedbackTypes.findIndex(([id]) => id === categoryId);
+          if (matchedIndex < 0) return;
+
+          const [id, label, notes] = feedbackTypes[matchedIndex];
+          const theme = getCategoryTheme(id);
+
+          // Điền dữ liệu vào khung chỉnh sửa tích hợp
+          editCategoryId.value = id;
+          editCategoryTargetName.textContent = label;
+          editCategoryTargetName.style.color = theme.color;
+          editCategoryName.value = label;
+          editCategoryNotes.value = notes.join(", ");
+
+          // Đẩy khung chỉnh sửa trượt xuất hiện
+          categoryEditPanel.style.display = "block";
+          categoryEditPanel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        });
+
+        // Nút Lưu thay đổi thiết lập nhóm lỗi
+        saveCategoryBtn.addEventListener("click", () => {
+          const id = editCategoryId.value;
+          const matchedIndex = feedbackTypes.findIndex(([itemId]) => itemId === id);
+          if (matchedIndex < 0) return;
+
+          const newName = editCategoryName.value.trim();
+          if (!newName) {
+            window.alert("Category name cannot be empty.");
+            return;
+          }
+
+          const notesText = editCategoryNotes.value.trim();
+          const newNotes = notesText ? notesText.split(",").map(n => n.trim()).filter(Boolean) : ["Check this point"];
+
+          // Lưu cập nhật vào hệ thống
+          feedbackTypes[matchedIndex][1] = newName;
+          feedbackTypes[matchedIndex][2] = newNotes;
+
+          saveFeedbackConfig();
+          categoryEditPanel.style.display = "none";
+          showMessage("Category updated successfully");
+        });
+
+        // Nút Hủy chỉnh sửa
+        cancelCategoryEditBtn.addEventListener("click", () => {
+          categoryEditPanel.style.display = "none";
+        });
+
+        // Nút Xóa nhóm lỗi hoàn toàn khỏi hệ thống và làm sạch (unwrap) bài viết
+        deleteCategoryBtn.addEventListener("click", () => {
+          const id = editCategoryId.value;
+          const matchedIndex = feedbackTypes.findIndex(([itemId]) => itemId === id);
+          if (matchedIndex < 0) return;
+
+          const [, label] = feedbackTypes[matchedIndex];
+          const isConfirm = window.confirm(`Are you sure you want to delete "${label}"? All highlighted annotations of this type in the text will be cleared.`);
+          if (!isConfirm) return;
+
+          // Tiến hành làm sạch các tag lỗi bị xóa trong bài viết để tránh lỗi xung đột
+          editor.querySelectorAll(`.feedback-node.fb-${id}`).forEach(unwrapFeedbackNode);
+
+          // Xóa khỏi danh sách cấu hình loại lỗi
+          feedbackTypes.splice(matchedIndex, 1);
+          
+          // Xóa dynamic style cũ để tránh chồng chéo
+          const styleEl = document.getElementById(`dynamic-style-${id}`);
+          if (styleEl) styleEl.remove();
+
+          saveFeedbackConfig();
+          categoryEditPanel.style.display = "none";
+          showMessage(`Deleted category "${label}"`);
+        });
+      }
+
+      initCustomTypeCreator();
+      syncFeedbackStyles();
+      initCategoryLegendListener();
+
+      // Kết xuất toàn bộ danh mục lỗi khi mới tải trang lần đầu
+      renderFeedbackTypeSelect();
+      renderSidebarLegend();
+      syncFeedbackStyles();
+      updateFeedbackClassIds();
+
       setMode("editing");
       renderImage();
       renderTeacherComments();
@@ -3014,3 +2756,4 @@
   </script>
 </body>
 </html>
+```
