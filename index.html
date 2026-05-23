@@ -1,0 +1,3019 @@
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing Feedback Studio</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --ink: #0f172a;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --accent: #0f172a;
+      --green: #15803d;
+      --shadow: 0 18px 55px rgba(15, 23, 42, 0.08);
+      --grammar-bg: #dbeafe;
+      --grammar-border: #60a5fa;
+      --vocabulary-bg: #fef3c7;
+      --vocabulary-border: #f59e0b;
+      --spelling-bg: #ffedd5;
+      --spelling-border: #fb923c;
+      --coherence-bg: #ede9fe;
+      --coherence-border: #a78bfa;
+      --task-bg: #cffafe;
+      --task-border: #0891b2;
+      --style-bg: #f1f5f9;
+      --style-border: #64748b;
+      --punctuation-bg: #cffafe;
+      --punctuation-border: #06b6d4;
+      --idea-bg: #ecfccb;
+      --idea-border: #84cc16;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      border-radius: 16px;
+      padding: 9px 14px;
+      cursor: pointer;
+      min-height: 36px;
+    }
+
+    button:hover { background: #f8fafc; border-color: #cbd5e1; }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+    button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+    button.danger { color: #be123c; background: #fff1f2; border-color: #fecdd3; }
+    button.icon { width: 40px; padding: 8px; font-weight: 800; border-radius: 12px; }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      color: var(--ink);
+      background: #fff;
+      padding: 9px 10px;
+    }
+
+    input[type="checkbox"] {
+      width: auto;
+      accent-color: var(--accent);
+    }
+
+    textarea { min-height: 80px; resize: vertical; }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    header {
+      background: transparent;
+      position: static;
+    }
+
+    .topbar {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .title-row, .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .title-row {
+      gap: 14px;
+    }
+
+    .title-row .brand {
+      margin-right: auto;
+    }
+
+    .toolbar {
+      padding-top: 4px;
+    }
+
+    .header-actions {
+      justify-content: flex-start;
+      align-items: stretch;
+      gap: 12px;
+    }
+
+    .header-actions .toolbar-group {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 10px;
+      gap: 8px;
+    }
+
+    .toolbar-label {
+      align-self: center;
+      padding: 0 4px;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .import-actions {
+      background: #f8fafc;
+      border-color: #dbe3ee;
+    }
+
+    .session-actions {
+      background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    .session-actions button {
+      border-color: #a5b4fc;
+    }
+
+    .export-actions {
+      background: #ecfdf5;
+      border-color: #bbf7d0;
+    }
+
+    .export-actions button {
+      border-color: #86efac;
+      background: #f0fdf4;
+    }
+
+    .export-actions button.primary {
+      background: #166534;
+      border-color: #166534;
+      color: #fff;
+    }
+
+    .title-export-actions {
+      margin-left: auto;
+      padding: 10px;
+      border: 1px solid #bbf7d0;
+      border-radius: 20px;
+      gap: 8px;
+    }
+
+    .title-export-actions .toolbar-label {
+      color: #166534;
+    }
+
+    .app-actions {
+      background: #fff7ed;
+      border-color: #fed7aa;
+    }
+
+    .app-actions button {
+      background: #fffbeb;
+      border-color: #fbbf24;
+      color: #92400e;
+      font-weight: 700;
+    }
+
+    .brand {
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.1;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-right: auto;
+    }
+
+    .brand::before {
+      content: "Writing teacher feedback tool";
+      display: table;
+      width: fit-content;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      background: #f1f5f9;
+      color: #475569;
+      padding: 4px 12px;
+      font-size: 14px;
+      line-height: 1.4;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .brand::after {
+      content: "Use Editing mode to paste and format writing. Use Suggesting mode to track teacher additions in green and student deletions in red.";
+      display: block;
+      margin-top: 8px;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .mode-toggle {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .mode-toggle button {
+      border: 0;
+      border-radius: 0;
+      min-width: 128px;
+      font-weight: 800;
+    }
+
+    .mode-toggle button.active {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    #suggestingMode.active {
+      background: var(--green);
+    }
+
+    .editor-mode-toggle button {
+      min-width: 104px;
+    }
+
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-right: 8px;
+    }
+    .toolbar-group:last-child { border-right: 0; }
+
+    main {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 12px 16px 32px;
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .sidebar {
+      display: grid;
+      align-content: start;
+      gap: 16px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      font-size: 18px;
+      margin: 0 0 16px;
+      letter-spacing: 0;
+    }
+
+    .editor-help {
+      flex: 1 1 100%;
+      order: 2;
+      margin: -2px 0 2px;
+      padding: 10px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      background: #f8fafc;
+    }
+
+    .editor-help h2 {
+      margin: 0 0 6px;
+      color: #334155;
+      font-size: 14px;
+    }
+
+    .editor-help ol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 4px 18px;
+      margin: 0;
+      padding-left: 18px;
+      color: #475569;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .editor-tools > .toolbar-group,
+    .editor-tools > .statusbar {
+      order: 3;
+    }
+
+    .app-footer {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px 28px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .app-footer p {
+      margin: 0;
+    }
+
+    .app-footer a {
+      color: #1d4ed8;
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .score-panel {
+      display: grid;
+      gap: 12px;
+      border-color: #fca5a5;
+      background: linear-gradient(180deg, #ffffff 0%, #fff7f7 100%);
+    }
+
+    .score-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-head h2 {
+      margin: 0;
+    }
+
+    .band-total {
+      margin-left: auto;
+      border-radius: 14px;
+      background: #b91c1c;
+      color: #fff;
+      border: 1px solid #991b1b;
+      padding: 8px 12px;
+      font-size: 15px;
+      font-weight: 800;
+      white-space: nowrap;
+      box-shadow: 0 8px 18px rgba(185, 28, 28, .18);
+    }
+
+    .score-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .score-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .score-field {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 92px;
+      gap: 8px;
+      align-items: center;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .score-field select {
+      border-radius: 12px;
+      padding: 7px 8px;
+    }
+
+    .field { margin-bottom: 10px; }
+    .field label {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #334155;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .image-preview {
+      border: 1px dashed #aab3c1;
+      border-radius: 18px;
+      min-height: 128px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background: #fafafa;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+      padding: 10px;
+    }
+
+    .image-preview img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .workspace {
+      min-width: 0;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .statusbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      min-height: 28px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+
+    .canvas {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .editor-tools {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .writing-shell {
+      display: grid;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .feedback-reference {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #f8fafc;
+      padding: 14px;
+    }
+
+    .feedback-reference h2 {
+      margin: 0 0 10px;
+      font-size: 15px;
+    }
+
+    .feedback-reference .legend {
+      gap: 7px;
+    }
+
+    .teacher-comments {
+      display: none;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fff;
+      padding: 14px;
+    }
+
+    .comments-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .comments-head h2 {
+      margin: 0;
+      font-size: 15px;
+    }
+
+    .comments-head span {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .comment-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .empty-comments {
+      margin: 0;
+      border: 1px dashed #cbd5e1;
+      border-radius: 14px;
+      padding: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .comment-card {
+      border: 1px solid var(--line);
+      border-left-width: 5px;
+      border-radius: 16px;
+      background: #fff;
+      padding: 12px;
+      display: grid;
+      gap: 9px;
+    }
+
+    .comment-card.active {
+      box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.08);
+    }
+
+    .comment-card.type-grammar { border-style: solid; }
+    .comment-card.type-vocabulary { border-style: dashed; }
+    .comment-card.type-spelling { border-style: dotted; }
+    .comment-card.type-coherence { border-style: double; }
+    .comment-card.type-task { border-style: solid dashed; }
+    .comment-card.type-style { border-style: dashed dotted; }
+    .comment-card.type-idea { border-style: double dotted; }
+
+    .comment-card-head {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .comment-index {
+      width: 30px;
+      min-height: 30px;
+      padding: 0;
+      border-radius: 999px;
+      background: #f8fafc;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .comment-card select,
+    .comment-card textarea {
+      border-radius: 12px;
+      font-size: 13px;
+    }
+
+    .comment-card textarea {
+      min-height: 72px;
+      line-height: 1.45;
+    }
+
+    .comment-target {
+      color: #475569;
+      font-size: 13px;
+      line-height: 1.45;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 8px 10px;
+    }
+
+    .comment-remove {
+      min-height: 30px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      color: #be123c;
+      background: #fff1f2;
+      border-color: #fecdd3;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .comment-card.type-grammar { border-color: var(--grammar-border); }
+    .comment-card.type-vocabulary { border-color: var(--vocabulary-border); }
+    .comment-card.type-spelling { border-color: var(--spelling-border); }
+    .comment-card.type-coherence { border-color: var(--coherence-border); }
+    .comment-card.type-task { border-color: var(--task-border); }
+    .comment-card.type-style { border-color: var(--style-border); }
+    .comment-card.type-punctuation { border-color: var(--punctuation-border); }
+    .comment-card.type-idea { border-color: var(--idea-border); }
+
+    .content-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .content-layout.with-image.image-left {
+      grid-template-columns: minmax(260px, 42%) minmax(0, 1fr);
+    }
+
+    .prompt-image img {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .editor {
+      position: relative;
+      isolation: isolate;
+      min-height: 620px;
+      outline: 0;
+      font-size: 18px;
+      line-height: 1.9;
+      padding: 24px;
+      overflow-wrap: anywhere;
+      overflow: hidden;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 24px;
+    }
+
+    .editor > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .editor:focus {
+      border-color: #cbd5e1;
+      box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.2);
+    }
+
+    body.suggesting-active .editor {
+      border-color: #86efac;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+    }
+
+    .editor:empty::before {
+      content: "Paste or type the student writing here.";
+      color: #98a2b3;
+    }
+
+    .suggest-add {
+      color: #16a34a;
+      white-space: pre-wrap;
+    }
+
+    .suggest-add.composition-add {
+      outline: 1px dotted #16a34a;
+      outline-offset: 2px;
+    }
+
+    .suggest-delete {
+      color: #dc2626;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+      background: #fef2f2;
+      white-space: pre-wrap;
+    }
+
+    .feedback-node {
+      border: 1px solid currentColor;
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      padding: 1px 3px;
+      cursor: pointer;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    .feedback-node.comment-active {
+      outline: 3px solid rgba(15, 23, 42, 0.18);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 1px #fff, 0 2px 10px rgba(15, 23, 42, 0.16);
+    }
+
+    ::highlight(pending-feedback-selection) {
+      background: rgba(147, 197, 253, 0.58);
+      color: inherit;
+    }
+
+    .feedback-node.fb-grammar { border-style: solid; }
+    .feedback-node.fb-vocabulary { border-style: dashed; }
+    .feedback-node.fb-spelling { border-style: dotted; }
+    .feedback-node.fb-coherence { border-style: double; }
+    .feedback-node.fb-task { border-style: solid dashed; }
+    .feedback-node.fb-style { border-style: dashed dotted; }
+    .feedback-node.fb-idea { border-style: double dotted; }
+
+    .comment-marker {
+      display: inline-block;
+      margin-left: 2px;
+      color: currentColor;
+      font-size: 0.64em;
+      font-weight: 800;
+      line-height: 1;
+      vertical-align: super;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .legend .feedback-node {
+      border: 1px solid currentColor;
+      border-bottom-width: 3px;
+      padding: 5px 9px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .fb-grammar { background: var(--grammar-bg); color: #1d4ed8; border-color: var(--grammar-border); }
+    .fb-vocabulary { background: var(--vocabulary-bg); color: #92400e; border-color: var(--vocabulary-border); }
+    .fb-spelling { background: var(--spelling-bg); color: #9a3412; border-color: var(--spelling-border); }
+    .fb-coherence { background: var(--coherence-bg); color: #6d28d9; border-color: var(--coherence-border); }
+    .fb-task { background: var(--task-bg); color: #0e7490; border-color: var(--task-border); }
+    .fb-style { background: var(--style-bg); color: #334155; border-color: var(--style-border); }
+    .fb-punctuation { background: var(--punctuation-bg); color: #0e7490; border-color: var(--punctuation-border); }
+    .fb-idea { background: var(--idea-bg); color: #3f6212; border-color: var(--idea-border); }
+
+    .feedback-node.fb-grammar,
+    .legend .fb-grammar,
+    .fb-grammar,
+    .comment-card.type-grammar {
+      border-style: dotted;
+      background-image: radial-gradient(rgba(15, 23, 42, 0.28) 1px, transparent 1.4px);
+      background-size: 6px 6px;
+    }
+
+    .comment-card.type-grammar { background-color: var(--grammar-bg); }
+
+    .feedback-node.fb-vocabulary,
+    .legend .fb-vocabulary,
+    .fb-vocabulary,
+    .comment-card.type-vocabulary {
+      border-style: solid;
+      background-image: repeating-linear-gradient(135deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px);
+    }
+
+    .comment-card.type-vocabulary { background-color: var(--vocabulary-bg); }
+
+    .feedback-node.fb-spelling,
+    .legend .fb-spelling,
+    .fb-spelling,
+    .comment-card.type-spelling {
+      border-style: dashed;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px),
+        repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.11) 0 1px, transparent 1px 7px);
+    }
+
+    .comment-card.type-spelling { background-color: var(--spelling-bg); }
+
+    .feedback-node.fb-coherence,
+    .legend .fb-coherence,
+    .fb-coherence,
+    .comment-card.type-coherence {
+      border-style: double;
+      background-image: repeating-linear-gradient(0deg, rgba(15, 23, 42, 0.13) 0 2px, transparent 2px 9px);
+    }
+
+    .comment-card.type-coherence { background-color: var(--coherence-bg); }
+
+    .feedback-node.fb-task,
+    .legend .fb-task,
+    .fb-task,
+    .comment-card.type-task {
+      border-style: solid;
+      border-width: 2px;
+      background-image: none;
+    }
+
+    .comment-card.type-task { background-color: var(--task-bg); }
+
+    .feedback-node.fb-style,
+    .legend .fb-style,
+    .fb-style,
+    .comment-card.type-style {
+      border-style: dashed;
+      background-image: repeating-linear-gradient(90deg, rgba(15, 23, 42, 0.15) 0 2px, transparent 2px 8px);
+    }
+
+    .comment-card.type-style { background-color: var(--style-bg); }
+
+    .feedback-node.fb-idea,
+    .legend .fb-idea,
+    .fb-idea,
+    .comment-card.type-idea {
+      border-style: solid;
+      background-image:
+        radial-gradient(circle at 2px 2px, rgba(15, 23, 42, 0.2) 1px, transparent 1.6px),
+        radial-gradient(circle at 8px 8px, rgba(15, 23, 42, 0.16) 1px, transparent 1.6px);
+      background-size: 12px 12px;
+    }
+
+    .comment-card.type-idea { background-color: var(--idea-bg); }
+
+    .feedback-popover {
+      position: fixed;
+      width: min(320px, calc(100vw - 24px));
+      max-height: min(480px, calc(100vh - 24px));
+      overflow: auto;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 12px;
+      z-index: 100;
+      display: none;
+    }
+
+    .feedback-popover.open { display: block; }
+    .feedback-popover h3 { margin: 0 0 8px; font-size: 14px; }
+    .quick-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 8px 0;
+    }
+    .quick-notes button { font-size: 12px; min-height: 30px; }
+
+    .popover-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .popover-actions .danger {
+      margin-left: auto;
+    }
+
+    .backup-links {
+      display: none;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      padding: 10px;
+      border: 1px solid #bfdbfe;
+      background: #eff6ff;
+      border-radius: 16px;
+    }
+    .backup-links.open { display: flex; }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 980px) {
+      main { grid-template-columns: 1fr; }
+      .content-layout.with-image.image-left { grid-template-columns: 1fr; }
+      .sidebar { order: 2; }
+      .editor-help ol { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      header, .sidebar, .editor-tools, .feedback-reference, .feedback-popover, .app-footer { display: none !important; }
+      main { display: block; padding: 0; }
+      .canvas { border: 0; box-shadow: none; }
+    }
+  </style>
+</head>
+<body class="">
+  <div class="app-shell">
+    <header>
+      <div class="topbar">
+        <div class="title-row">
+          <div class="brand">Corrective Feedback Annotation App</div>
+          <div class="toolbar-group export-actions title-export-actions" aria-label="Export">
+            <span class="toolbar-label">Export</span>
+            <button type="button" id="exportStudentBtn" class="primary">Student HTML</button>
+            <button type="button" id="exportPdfBtn">PDF</button>
+          </div>
+        </div>
+        <div class="toolbar header-actions">
+          <div class="toolbar-group import-actions">
+            <span class="toolbar-label">Import</span>
+            <button type="button" id="importTextBtn">Import text/HTML</button>
+            <input type="file" id="importTextInput" class="hidden" accept=".txt,.html,.htm,text/plain,text/html">
+          </div>
+          <div class="toolbar-group session-actions">
+            <span class="toolbar-label">Session</span>
+            <button type="button" id="saveSessionBtn">Save session</button>
+            <button type="button" id="loadSessionBtn">Load session</button>
+            <input type="file" id="loadSessionInput" class="hidden" accept="application/json,.json">
+          </div>
+          <div class="toolbar-group app-actions">
+            <span class="toolbar-label">App</span>
+            <button type="button" id="downloadAppBtn">Download for offline use</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>1. Assignment details</h2>
+          <div class="field">
+            <label for="docTitle">Title</label>
+            <input id="docTitle" value="Writing Feedback">
+          </div>
+          <div class="field">
+            <label for="studentName">Student name</label>
+            <input id="studentName" placeholder="Student name" value="">
+          </div>
+          <div class="field">
+            <label for="taskPrompt">Task prompt</label>
+            <textarea id="taskPrompt" placeholder="Paste the writing task or teacher note."></textarea>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>2. Add image(s)</h2>
+          <div class="field">
+            <label for="layoutSelect">Export layout</label>
+            <select id="layoutSelect">
+              <option value="image-left">Image beside writing</option>
+              <option value="image-top" selected="">Image above writing</option>
+            </select>
+          </div>
+          <div class="image-preview" id="imagePreview">Upload or paste image(s) for the writing prompt.</div>
+          <div class="field" style="margin-top:10px">
+            <input type="file" id="imageInput" accept="image/*">
+          </div>
+          <button type="button" id="removeImageBtn" class="danger">Remove image</button>
+        </section>
+
+        <section class="panel score-panel">
+          <div class="score-head">
+            <h2>3. IELTS band score</h2>
+            <div id="overallBand" class="band-total">Overall: -</div>
+          </div>
+          <p class="score-note">Enter whole-band scores for the four IELTS Writing criteria. The total is the average rounded to the nearest half band.</p>
+          <div id="scoreGrid" class="score-grid">
+          <label class="score-field">
+            <span>Task response/achievement</span>
+            <select id="score-task" data-score-criterion="task"><option value="" selected="">-</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+          </label>
+        
+          <label class="score-field">
+            <span>Coherence and cohesion</span>
+            <select id="score-coherence" data-score-criterion="coherence"><option value="" selected="">-</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+          </label>
+        
+          <label class="score-field">
+            <span>Lexical resource</span>
+            <select id="score-lexical" data-score-criterion="lexical"><option value="" selected="">-</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+          </label>
+        
+          <label class="score-field">
+            <span>Grammatical range and accuracy</span>
+            <select id="score-grammar" data-score-criterion="grammar"><option value="" selected="">-</option><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>
+          </label>
+        </div>
+        </section>
+
+      </aside>
+
+      <section class="workspace">
+        <div id="backupLinks" class="backup-links"></div>
+        <div class="canvas">
+          <div class="editor-tools">
+            <div class="mode-toggle editor-mode-toggle" aria-label="Editor mode">
+              <button type="button" id="editingMode" class="active">Editing</button>
+              <button type="button" id="suggestingMode" class="">Suggesting</button>
+            </div>
+            <section class="editor-help" aria-label="How suggesting works">
+              <h2>How suggesting works</h2>
+              <ol>
+                <li>Select text and type to replace it.</li>
+                <li>Teacher additions stay green and can be edited in place.</li>
+                <li>Deleted student text stays visible in red.</li>
+                <li>Feedback can be layered on top of changes.</li>
+              </ol>
+            </section>
+            <div class="toolbar-group" aria-label="Formatting">
+              <button type="button" class="icon" data-command="bold" title="Bold">B</button>
+              <button type="button" class="icon" data-command="italic" title="Italic"><em>I</em></button>
+              <button type="button" class="icon" data-command="underline" title="Underline"><u>U</u></button>
+              <button type="button" data-command="removeFormat">Remove format</button>
+              <button type="button" id="undoBtn" title="Undo last app edit">Undo</button>
+            </div>
+            <div class="statusbar">
+              <span id="statusText">Editing mode</span>
+              <span id="wordCount">56 words</span>
+            </div>
+          </div>
+          <div class="writing-shell">
+            <div id="contentLayout" class="content-layout">
+              <div id="promptImage" class="prompt-image hidden"></div>
+              <article id="editor" class="editor" contenteditable="true" spellcheck="true"><p>This is just a sample. You can<span data-change="deletion" class="suggest-delete" contenteditable="false"> paste</span><span data-change="addition" class="suggest-add" contenteditable="true">haha</span> your student's writing here, and add any picture of the task using the Add image(s) panel or by simply pasting it into this area.</p><p>Use Editing mode to paste and format the writing first. Then switch to Suggesting mode to start giving feedback and editing your student's work.</p></article>
+            </div>
+            <aside class="teacher-comments">
+              <div class="comments-head">
+                <h2>Teacher comments</h2>
+                <span id="commentCount">0 comments</span>
+              </div>
+              <div id="commentList" class="comment-list"><p class="empty-comments">Select text in the writing area, add a feedback type and explanation, then edit comments here later.</p></div>
+            </aside>
+            <aside class="feedback-reference">
+              <h2>Feedback types</h2>
+              <div class="legend">
+                <span class="feedback-node fb-grammar">Grammar</span>
+                <span class="feedback-node fb-vocabulary">Vocabulary</span>
+                <span class="feedback-node fb-spelling">Spelling</span>
+                <span class="feedback-node fb-coherence">Coherence</span>
+                <span class="feedback-node fb-task">Task response/achievement</span>
+                <span class="feedback-node fb-style">Style</span>
+                <span class="feedback-node fb-idea">Idea</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="app-footer">
+      <p>This app works entirely offline after download. Contact: <a href="mailto:lehoang.anhnguica@gmail.com">lehoang.anhnguica@gmail.com</a> · <a href="https://www.facebook.com/lkhoang.gnaohkl/" target="_blank" rel="noopener">facebook.com/lkhoang.gnaohkl</a></p>
+    </footer>
+  </div>
+
+  <div id="feedbackPopover" class="feedback-popover" role="dialog" aria-label="Feedback comment" style="left: 835.986px; top: 582.069px;">
+    <h3 id="feedbackPopoverTitle">Add feedback</h3>
+    <div class="field">
+      <label for="feedbackType">Type</label>
+      <select id="feedbackType"><option value="grammar" selected="">Grammar</option><option value="vocabulary">Vocabulary</option><option value="spelling">Spelling</option><option value="coherence">Coherence</option><option value="task">Task response/achievement</option><option value="style">Style</option><option value="idea">Idea development</option></select>
+    </div>
+    <div class="quick-notes" id="quickNotes"><button type="button" data-note="Subject-verb agreement">Subject-verb agreement</button><button type="button" data-note="Verb tense">Verb tense</button><button type="button" data-note="Sentence structure">Sentence structure</button><button type="button" data-note="Comma or punctuation issue">Comma or punctuation issue</button></div>
+    <div class="field">
+      <label for="feedbackNote">Explanation</label>
+      <textarea id="feedbackNote" placeholder="Write the explanation students should see."></textarea>
+    </div>
+    <div class="popover-actions">
+      <button type="button" id="applyFeedbackBtn" class="primary">Apply</button>
+      <button type="button" id="cancelFeedbackBtn">Cancel</button>
+      <button type="button" id="removeFeedbackBtn" class="danger hidden">Remove comment</button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const editor = document.getElementById("editor");
+      const sidebar = document.querySelector(".sidebar");
+      const statusText = document.getElementById("statusText");
+      const wordCount = document.getElementById("wordCount");
+      const editingMode = document.getElementById("editingMode");
+      const suggestingMode = document.getElementById("suggestingMode");
+      const feedbackPopover = document.getElementById("feedbackPopover");
+      const feedbackPopoverTitle = document.getElementById("feedbackPopoverTitle");
+      const feedbackType = document.getElementById("feedbackType");
+      const feedbackNote = document.getElementById("feedbackNote");
+      const quickNotes = document.getElementById("quickNotes");
+      const applyFeedbackBtn = document.getElementById("applyFeedbackBtn");
+      const removeFeedbackBtn = document.getElementById("removeFeedbackBtn");
+      const backupLinks = document.getElementById("backupLinks");
+      const imageInput = document.getElementById("imageInput");
+      const imagePreview = document.getElementById("imagePreview");
+      const promptImage = document.getElementById("promptImage");
+      const contentLayout = document.getElementById("contentLayout");
+      const layoutSelect = document.getElementById("layoutSelect");
+      const undoBtn = document.getElementById("undoBtn");
+      const commentList = document.getElementById("commentList");
+      const commentCount = document.getElementById("commentCount");
+      const scoreGrid = document.getElementById("scoreGrid");
+      const overallBand = document.getElementById("overallBand");
+
+      const feedbackTypes = [
+        ["grammar", "Grammar", ["Subject-verb agreement", "Verb tense", "Sentence structure", "Comma or punctuation issue"]],
+        ["vocabulary", "Vocabulary", ["More precise word needed", "Awkward collocation", "Repeated word"]],
+        ["spelling", "Spelling", ["Check spelling", "Capitalization", "Word form"]],
+        ["coherence", "Coherence", ["Link ideas more clearly", "Paragraph focus", "Transition needed"]],
+        ["task", "Task response/achievement", ["Answer the prompt directly", "Add specific support", "Develop this point"]],
+        ["style", "Style", ["Too informal", "Make this more concise", "Academic tone"]],
+        ["idea", "Idea development", ["Explain why", "Add example", "Clarify this idea"]]
+      ];
+      const feedbackTypeAliases = { punctuation: "grammar" };
+      const feedbackClassIds = [...feedbackTypes.map(([id]) => id), ...Object.keys(feedbackTypeAliases)];
+      const scoreCriteria = [
+        ["task", "Task response/achievement"],
+        ["coherence", "Coherence and cohesion"],
+        ["lexical", "Lexical resource"],
+        ["grammar", "Grammatical range and accuracy"]
+      ];
+
+      let mode = "editing";
+      let savedRange = null;
+      let taskImage = "";
+      let undoStack = [];
+      let feedbackIdCounter = 1;
+      let compositionMarker = null;
+      let compositionText = "";
+      let compositionHistory = [];
+      let compositionFallbackTimer = 0;
+      let commentEditUndoIds = new Set();
+      let editingFeedbackId = "";
+      let typingUndoOpen = false;
+      let typingUndoTimer = 0;
+      let feedbackClickTimer = 0;
+      let suppressSelectionPopover = false;
+      let pendingFeedbackHighlightRange = null;
+      const pendingFeedbackHighlightName = "pending-feedback-selection";
+
+      feedbackType.innerHTML = feedbackTypes.map(([id, label]) => `<option value="${id}">${escapeHtml(label)}</option>`).join("");
+      renderScoreInputs();
+      renderQuickNotes();
+
+      function setMode(nextMode) {
+        closeTypingUndoGroup();
+        mode = nextMode;
+        editingMode.classList.toggle("active", mode === "editing");
+        suggestingMode.classList.toggle("active", mode === "suggesting");
+        document.body.classList.toggle("suggesting-active", mode === "suggesting");
+        statusText.textContent = mode === "editing" ? "Editing mode" : "Suggesting mode";
+        hideFeedbackPopover();
+      }
+
+      function updateWordCount() {
+        const words = editor.innerText.trim().split(/\s+/).filter(Boolean).length;
+        wordCount.textContent = `${words} ${words === 1 ? "word" : "words"}`;
+      }
+
+      function updateUndoButton() {
+        undoBtn.disabled = undoStack.length === 0;
+      }
+
+      function storeUndoSnapshot() {
+        const html = editor.innerHTML;
+        if (undoStack[undoStack.length - 1] !== html) {
+          undoStack.push(html);
+          if (undoStack.length > 500) undoStack.shift();
+        }
+        updateUndoButton();
+      }
+
+      function closeTypingUndoGroup() {
+        typingUndoOpen = false;
+        window.clearTimeout(typingUndoTimer);
+      }
+
+      function pushUndoSnapshot() {
+        closeTypingUndoGroup();
+        storeUndoSnapshot();
+      }
+
+      function pushTypingUndoSnapshot() {
+        if (!typingUndoOpen) {
+          storeUndoSnapshot();
+          typingUndoOpen = true;
+        }
+        window.clearTimeout(typingUndoTimer);
+        typingUndoTimer = window.setTimeout(() => {
+          typingUndoOpen = false;
+        }, 1200);
+      }
+
+      function placeCaretAtEnd() {
+        editor.focus();
+        const range = document.createRange();
+        range.selectNodeContents(editor);
+        range.collapse(false);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+
+      function undoEditorChange() {
+        closeTypingUndoGroup();
+        const previous = undoStack.pop();
+        if (previous === undefined) return;
+        editor.innerHTML = previous;
+        savedRange = null;
+        hideFeedbackPopover();
+        normalizeSuggestions();
+        updateWordCount();
+        updateUndoButton();
+        renderTeacherComments();
+        placeCaretAtEnd();
+        showMessage("Undid last edit");
+      }
+
+      function renderQuickNotes() {
+        const current = feedbackTypes.find(([id]) => id === feedbackType.value) || feedbackTypes[0];
+        quickNotes.innerHTML = current[2].map(note => `<button type="button" data-note="${escapeAttr(note)}">${escapeHtml(note)}</button>`).join("");
+      }
+
+      function canonicalFeedbackType(type) {
+        const value = String(type || "grammar");
+        if (feedbackTypes.some(([id]) => id === value)) return value;
+        return feedbackTypeAliases[value] || "grammar";
+      }
+
+      function bandOptionsHtml() {
+        const values = ['<option value="">-</option>'];
+        for (let score = 0; score <= 9; score += 1) {
+          values.push(`<option value="${score}">${score}</option>`);
+        }
+        return values.join("");
+      }
+
+      function renderScoreInputs() {
+        const options = bandOptionsHtml();
+        scoreGrid.innerHTML = scoreCriteria.map(([id, label]) => `
+          <label class="score-field">
+            <span>${escapeHtml(label)}</span>
+            <select id="score-${id}" data-score-criterion="${id}">${options}</select>
+          </label>
+        `).join("");
+        updateBandScore();
+      }
+
+      function formatBand(value) {
+        if (value === "" || value == null || Number.isNaN(Number(value))) return "-";
+        const number = Number(value);
+        return Number.isInteger(number) ? String(number) : number.toFixed(1);
+      }
+
+      function getBandScores() {
+        return Object.fromEntries(scoreCriteria.map(([id]) => {
+          const value = document.getElementById(`score-${id}`)?.value || "";
+          return [id, normalizeCriterionBand(value)];
+        }));
+      }
+
+      function normalizeCriterionBand(value) {
+        if (value === "" || value == null || Number.isNaN(Number(value))) return "";
+        const rounded = Math.round(Number(value));
+        return String(Math.min(9, Math.max(0, rounded)));
+      }
+
+      function roundedIeltsBand(scores) {
+        const values = scoreCriteria.map(([id]) => normalizeCriterionBand(scores[id]));
+        if (values.some(value => value === "")) return null;
+        const numeric = values.map(Number);
+        const average = numeric.reduce((sum, score) => sum + score, 0) / numeric.length;
+        return Math.round(average * 2) / 2;
+      }
+
+      function updateBandScore() {
+        const rounded = roundedIeltsBand(getBandScores());
+        overallBand.textContent = `Overall: ${rounded == null ? "-" : formatBand(rounded)}`;
+      }
+
+      function applyBandScores(scores = {}) {
+        scoreCriteria.forEach(([id]) => {
+          const input = document.getElementById(`score-${id}`);
+          if (input) input.value = normalizeCriterionBand(scores[id]);
+        });
+        updateBandScore();
+      }
+
+      function buildScoreSummaryHtml(scores = {}) {
+        const rounded = roundedIeltsBand(scores);
+        const normalizedScores = Object.fromEntries(scoreCriteria.map(([id]) => [id, normalizeCriterionBand(scores[id])]));
+        const hasAnyScore = scoreCriteria.some(([id]) => normalizedScores[id] !== "");
+        if (!hasAnyScore) return "";
+        const overall = rounded == null ? "Incomplete" : formatBand(rounded);
+        const rows = scoreCriteria.map(([id, label]) => `
+          <div class="score-chip" style="display:flex; align-items:center; justify-content:space-between; gap:8px; background:#f8fafc; border:1px solid #d9dee7; border-radius:10px; padding:8px 10px; font-size:13px; font-weight:700; line-height:1.25; margin-bottom:4px;">
+            <span style="color:#475569;">${escapeHtml(label)}</span>
+            <strong style="display:grid; place-items:center; min-width:34px; height:30px; border-radius:999px; background:#b91c1c; color:#fff; font-size:16px;">${formatBand(normalizedScores[id])}</strong>
+          </div>
+        `).join("");
+        return `
+          <section class="score-summary" style="display:grid; grid-template-columns:170px minmax(0,1fr); gap:12px; align-items:stretch; background:#fff; border:1px solid #fecaca; border-left:6px solid #b91c1c; border-radius:14px; padding:12px 14px; margin:0 0 16px; box-shadow:0 8px 24px rgba(15, 23, 42, 0.06);">
+            <div class="score-overall" style="display:grid; align-content:center; justify-items:start; gap:2px; background:#111827; color:#fff; border-radius:12px; padding:12px;">
+              <span style="text-transform:uppercase; letter-spacing:.06em; font-size:11px; font-weight:800; color:#fecaca;">IELTS Writing</span>
+              <strong style="font-size:34px; line-height:1; font-weight:900;">${escapeHtml(overall)}</strong>
+              <em style="font-style:normal; font-size:12px; color:#e5e7eb;">Overall band</em>
+            </div>
+            <div class="score-breakdown" style="display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:4px;">${rows}</div>
+          </section>
+        `;
+      }
+
+      function showMessage(text) {
+        statusText.textContent = text;
+        window.clearTimeout(showMessage.timer);
+        showMessage.timer = window.setTimeout(() => {
+          statusText.textContent = mode === "editing" ? "Editing mode" : "Suggesting mode";
+        }, 2500);
+      }
+
+      function nextFeedbackId() {
+        return `comment-${Date.now().toString(36)}-${feedbackIdCounter++}`;
+      }
+
+      function setFeedbackNodeType(node, type) {
+        const nextType = canonicalFeedbackType(type);
+        feedbackClassIds.forEach(id => node.classList.remove(`fb-${id}`));
+        node.dataset.feedbackType = nextType;
+        node.classList.add(`fb-${nextType}`);
+      }
+
+      function ensureFeedbackIds() {
+        editor.querySelectorAll(".feedback-node[data-feedback-type]").forEach(node => {
+          if (!node.dataset.feedbackId) node.dataset.feedbackId = nextFeedbackId();
+          setFeedbackNodeType(node, node.dataset.feedbackType);
+        });
+      }
+
+      function clippedText(value, max = 160) {
+        const normalized = String(value || "").replace(/\s+/g, " ").trim();
+        return normalized.length > max ? `${normalized.slice(0, max - 1)}...` : normalized;
+      }
+
+      function cssEscape(value) {
+        if (window.CSS?.escape) return CSS.escape(value);
+        return String(value).replace(/["\\]/g, "\\$&");
+      }
+
+      function getFeedbackGroups() {
+        ensureFeedbackIds();
+        const groups = new Map();
+        editor.querySelectorAll(".feedback-node[data-feedback-type]").forEach(node => {
+          const id = node.dataset.feedbackId;
+          if (!groups.has(id)) {
+            groups.set(id, {
+              id,
+              type: canonicalFeedbackType(node.dataset.feedbackType),
+              note: node.dataset.feedbackNote || "",
+              nodes: []
+            });
+          }
+          groups.get(id).nodes.push(node);
+        });
+        return Array.from(groups.values()).map(group => ({
+          ...group,
+          text: clippedText(group.nodes.map(node => node.textContent).join(" "))
+        }));
+      }
+
+      function renderTeacherComments(activeId = "") {
+        const groups = getFeedbackGroups();
+        commentCount.textContent = `${groups.length} ${groups.length === 1 ? "comment" : "comments"}`;
+        if (!groups.length) {
+          commentList.innerHTML = `<p class="empty-comments">Select text in the writing area, add a feedback type and explanation, then edit comments here later.</p>`;
+          return;
+        }
+        commentList.innerHTML = groups.map((group, index) => {
+          const options = feedbackTypes.map(([id, label]) => `<option value="${id}"${id === group.type ? " selected" : ""}>${escapeHtml(label)}</option>`).join("");
+          const note = group.note || "No explanation was added.";
+          return `<section class="comment-card type-${escapeAttr(group.type)}${group.id === activeId ? " active" : ""}" data-comment-id="${escapeAttr(group.id)}">
+            <div class="comment-card-head">
+              <button type="button" class="comment-index" data-action="jump" title="Go to highlighted text">${index + 1}</button>
+              <select data-action="type" aria-label="Feedback type">${options}</select>
+              <button type="button" class="comment-remove" data-action="remove">Remove</button>
+            </div>
+            <div class="comment-target">${escapeHtml(group.text || "Selected feedback text")}</div>
+            <textarea data-action="note" aria-label="Teacher explanation">${escapeHtml(note)}</textarea>
+          </section>`;
+        }).join("");
+      }
+
+      function findFeedbackGroup(id) {
+        return getFeedbackGroups().find(group => group.id === id) || null;
+      }
+
+      function focusFeedbackGroup(id, options = {}) {
+        editor.querySelectorAll(".feedback-node.comment-active").forEach(node => node.classList.remove("comment-active"));
+        commentList.querySelectorAll(".comment-card.active").forEach(card => card.classList.remove("active"));
+        const group = findFeedbackGroup(id);
+        if (!group) return;
+        group.nodes.forEach(node => node.classList.add("comment-active"));
+        if (options.selectText !== false) selectFeedbackGroupText(group);
+        const card = commentList.querySelector(`[data-comment-id="${cssEscape(id)}"]`);
+        card?.classList.add("active");
+        if (options.scroll !== false) group.nodes[0].scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+
+      function selectFeedbackGroupText(group) {
+        if (!group?.nodes?.length) return;
+        const first = group.nodes[0];
+        const last = group.nodes[group.nodes.length - 1];
+        const range = document.createRange();
+        range.setStartBefore(first);
+        range.setEndAfter(last);
+        const sel = window.getSelection();
+        suppressSelectionPopover = true;
+        sel.removeAllRanges();
+        sel.addRange(range);
+        setPendingFeedbackHighlight(range);
+        window.setTimeout(() => {
+          suppressSelectionPopover = false;
+        }, 120);
+      }
+
+      function supportsCustomHighlights() {
+        return Boolean(window.CSS?.highlights && typeof window.Highlight === "function");
+      }
+
+      function setPendingFeedbackHighlight(range) {
+        clearPendingFeedbackHighlight();
+        if (!range || range.collapsed || !supportsCustomHighlights()) return;
+        pendingFeedbackHighlightRange = range.cloneRange();
+        CSS.highlights.set(pendingFeedbackHighlightName, new Highlight(pendingFeedbackHighlightRange));
+      }
+
+      function clearPendingFeedbackHighlight() {
+        if (supportsCustomHighlights()) CSS.highlights.delete(pendingFeedbackHighlightName);
+        pendingFeedbackHighlightRange = null;
+      }
+
+      function updateFeedbackGroupType(id, type) {
+        const group = findFeedbackGroup(id);
+        if (!group) return;
+        pushUndoSnapshot();
+        group.nodes.forEach(node => setFeedbackNodeType(node, canonicalFeedbackType(type)));
+        renderTeacherComments(id);
+        focusFeedbackGroup(id);
+      }
+
+      function beginCommentEdit(id) {
+        if (commentEditUndoIds.has(id)) return;
+        pushUndoSnapshot();
+        commentEditUndoIds.add(id);
+      }
+
+      function finishCommentEdit(id) {
+        commentEditUndoIds.delete(id);
+      }
+
+      function updateFeedbackGroupNote(id, note) {
+        const group = findFeedbackGroup(id);
+        if (!group) return;
+        group.nodes.forEach(node => {
+          node.dataset.feedbackNote = note;
+        });
+      }
+
+      function unwrapFeedbackNode(node) {
+        const fragment = document.createDocumentFragment();
+        while (node.firstChild) fragment.appendChild(node.firstChild);
+        node.replaceWith(fragment);
+      }
+
+      function removeFeedbackGroup(id) {
+        const group = findFeedbackGroup(id);
+        if (!group) return;
+        pushUndoSnapshot();
+        group.nodes.forEach(unwrapFeedbackNode);
+        renderTeacherComments();
+        updateWordCount();
+      }
+
+      function openFeedbackEditPopover(id, targetNode, options = {}) {
+        const group = findFeedbackGroup(id);
+        if (!group) return;
+        savedRange = null;
+        editingFeedbackId = id;
+        feedbackType.value = group.type || "grammar";
+        feedbackNote.value = group.note || "";
+        renderQuickNotes();
+        setFeedbackPopoverMode("edit");
+        renderTeacherComments(id);
+        focusFeedbackGroup(id, {
+          selectText: options.preserveSelection ? false : true,
+          scroll: options.preserveSelection ? false : true
+        });
+        const targetRect = targetNode?.getBoundingClientRect?.() || group.nodes[0].getBoundingClientRect();
+        if (options.position === "left-of-editor") positionFeedbackPopoverLeftOfEditor(targetRect);
+        else positionFeedbackPopoverByRect(targetRect);
+      }
+
+      function getSelectionRange() {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        const range = sel.getRangeAt(0);
+        if (!editor.contains(range.commonAncestorContainer)) return null;
+        return range;
+      }
+
+      // Hàm đóng gói mã UTF-8 và mã Base64 tương thích cao
+      function utoa(str) {
+        return window.btoa(String.fromCharCode(...new TextEncoder().encode(str)));
+      }
+      function atou(base64) {
+        return new TextDecoder().decode(Uint8Array.from(window.atob(base64), c => c.charCodeAt(0)));
+      }
+
+      function placeCaretAfter(node) {
+        const range = document.createRange();
+        range.setStartAfter(node);
+        range.collapse(true);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+
+      function placeCaretBefore(node) {
+        const range = document.createRange();
+        range.setStartBefore(node);
+        range.collapse(true);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+
+      function closestChange(node, type) {
+        if (!node) return null;
+        const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+        return element?.closest ? element.closest(`[data-change="${type}"]`) : null;
+      }
+
+      function closestFeedbackNode(node) {
+        if (!node) return null;
+        const element = node.nodeType === Node.ELEMENT_NODE ? node : node.parentElement;
+        return element?.closest ? element.closest(".feedback-node[data-feedback-type]") : null;
+      }
+
+      function rangeContainsFeedbackNode(range) {
+        if (!range) return false;
+        if (closestFeedbackNode(range.startContainer) || closestFeedbackNode(range.endContainer)) return true;
+        const temp = document.createElement("div");
+        temp.appendChild(range.cloneContents());
+        return Boolean(temp.querySelector(".feedback-node[data-feedback-type]"));
+      }
+
+      function feedbackContextFromNode(node) {
+        if (!node) return null;
+        if (!node.dataset.feedbackId) node.dataset.feedbackId = nextFeedbackId();
+        return {
+          id: node.dataset.feedbackId,
+          type: canonicalFeedbackType(node.dataset.feedbackType),
+          note: node.dataset.feedbackNote || ""
+        };
+      }
+
+      function feedbackContextForRange(range) {
+        if (!range) return null;
+        const start = closestFeedbackNode(range.startContainer);
+        const MathNode = closestFeedbackNode(range.endContainer);
+        if (!start || !MathNode || start !== MathNode) return null;
+        return feedbackContextFromNode(start);
+      }
+
+      function keepFeedbackOnInsertedChange(changeNode, context) {
+        if (!changeNode || !context || closestFeedbackNode(changeNode)) return changeNode;
+        const wrapper = createFeedbackWrapper(context.type, context.id, context.note);
+        changeNode.replaceWith(wrapper);
+        wrapper.appendChild(changeNode);
+        return wrapper;
+      }
+
+      function feedbackNodesIntersectingRange(range) {
+        if (!range) return [];
+        ensureFeedbackIds();
+        return Array.from(editor.querySelectorAll(".feedback-node[data-feedback-type]")).filter(node => {
+          try {
+            return range.intersectsNode(node);
+          } catch (error) {
+            return false;
+          }
+        });
+      }
+
+      function convertExtractedNodeToDeletion(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return node.nodeValue ? createChangeSpan("deletion", node.nodeValue) : null;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return null;
+        if (node.dataset?.change === "addition") return null;
+        const clone = node.cloneNode(false);
+        if (clone.matches?.(".feedback-node[data-feedback-type]")) {
+          setFeedbackNodeType(clone, clone.dataset.feedbackType);
+          if (!clone.dataset.feedbackId) clone.dataset.feedbackId = nextFeedbackId();
+        }
+        Array.from(node.childNodes).forEach(child => {
+          const converted = convertExtractedNodeToDeletion(child);
+          if (converted) clone.appendChild(converted);
+        });
+        if (clone.tagName === "BR") return clone;
+        return clone.childNodes.length ? clone : null;
+      }
+
+      function deleteRangePreservingFeedback(range) {
+        const intersecting = feedbackNodesIntersectingRange(range);
+        if (!intersecting.length) return null;
+        const activeId = intersecting[0].dataset.feedbackId || "";
+        const extracted = range.extractContents();
+        const fragment = document.createDocumentFragment();
+        Array.from(extracted.childNodes).forEach(node => {
+          const converted = convertExtractedNodeToDeletion(node);
+          if (converted) fragment.appendChild(converted);
+        });
+        const insertedNodes = Array.from(fragment.childNodes);
+        if (insertedNodes.length) {
+          range.insertNode(fragment);
+        }
+        return {
+          activeId,
+          lastInserted: insertedNodes[insertedNodes.length - 1] || null
+        };
+      }
+
+      function createChangeSpan(type, text) {
+        const span = document.createElement("span");
+        span.dataset.change = type;
+        span.className = type === "addition" ? "suggest-add" : "suggest-delete";
+        span.contentEditable = type === "addition" ? "true" : "false";
+        span.textContent = text;
+        return span;
+      }
+
+      function syncChangeEditableState(element) {
+        if (!element?.dataset?.change) return;
+        element.contentEditable = element.dataset.change === "addition" ? "true" : "false";
+      }
+
+      function indexOfNode(node) {
+        return node?.parentNode ? Array.prototype.indexOf.call(node.parentNode.childNodes, node) : -1;
+      }
+
+      function validTrackedTextNode(node) {
+        return node?.nodeType === Node.TEXT_NODE && node.nodeValue && !closestChange(node, "deletion");
+      }
+
+      function lastTextNode(node) {
+        if (!node) return null;
+        if (validTrackedTextNode(node)) return node;
+        if (node.nodeType !== Node.ELEMENT_NODE) return null;
+        for (let i = node.childNodes.length - 1; i >= 0; i -= 1) {
+          const found = lastTextNode(node.childNodes[i]);
+          if (found) return found;
+        }
+        return null;
+      }
+
+      function firstTextNode(node) {
+        if (!node) return null;
+        if (validTrackedTextNode(node)) return node;
+        if (node.nodeType !== Node.ELEMENT_NODE) return null;
+        for (let i = 0; i < node.childNodes.length; i += 1) {
+          const found = firstTextNode(node.childNodes[i]);
+          if (found) return found;
+        }
+        return null;
+      }
+
+      function previousTextNode(container, offset) {
+        let current = container;
+        let currentOffset = offset;
+        while (current && editor.contains(current)) {
+          if (current.nodeType === Node.ELEMENT_NODE) {
+            for (let i = currentOffset - 1; i >= 0; i -= 1) {
+              const found = lastTextNode(current.childNodes[i]);
+              if (found) return found;
+            }
+          }
+          if (current === editor) break;
+          currentOffset = indexOfNode(current);
+          current = current.parentNode;
+        }
+        return null;
+      }
+
+      function nextTextNode(container, offset) {
+        let current = container;
+        let currentOffset = offset;
+        while (current && editor.contains(current)) {
+          if (current.nodeType === Node.ELEMENT_NODE) {
+            for (let i = currentOffset; i < current.childNodes.length; i += 1) {
+              const found = firstTextNode(current.childNodes[i]);
+              if (found) return found;
+            }
+          }
+          if (current === editor) break;
+          currentOffset = indexOfNode(current) + 1;
+          current = current.parentNode;
+        }
+        return null;
+      }
+
+      function characterRange(direction) {
+        const sel = window.getSelection();
+        if (!sel || sel.rangeCount === 0) return null;
+        const caret = sel.getRangeAt(0);
+        if (!caret.collapsed || !editor.contains(caret.commonAncestorContainer)) return null;
+        const container = caret.startContainer;
+        const offset = caret.startOffset;
+        const range = document.createRange();
+        if (container.nodeType === Node.TEXT_NODE && !closestChange(container, "deletion")) {
+          const value = container.nodeValue || "";
+          if (direction === "backward" && offset > 0) {
+            range.setStart(container, offset - 1);
+            range.setEnd(container, offset);
+            return range;
+          }
+          if (direction === "forward" && offset < value.length) {
+            range.setStart(container, offset);
+            range.setEnd(container, offset + 1);
+            return range;
+          }
+        }
+
+        let target = null;
+        if (container.nodeType === Node.TEXT_NODE) {
+          const index = indexOfNode(container);
+          target = direction === "backward" ? previousTextNode(container.parentNode, index) : nextTextNode(container.parentNode, index + 1);
+        } else {
+          target = direction === "backward" ? previousTextNode(container, offset) : nextTextNode(container, offset);
+        }
+        if (!target?.nodeValue) return null;
+        if (direction === "backward") {
+          range.setStart(target, target.nodeValue.length - 1);
+          range.setEnd(target, target.nodeValue.length);
+        } else {
+          range.setStart(target, 0);
+          range.setEnd(target, 1);
+        }
+        return range;
+      }
+
+      function additionBeforeCaret() {
+        const range = getSelectionRange();
+        if (!range || !range.collapsed) return null;
+        const container = range.startContainer;
+        const offset = range.startOffset;
+        if (container.nodeType === Node.TEXT_NODE) {
+          const parent = container.parentElement;
+          if (parent?.dataset?.change === "addition" && offset === container.nodeValue.length) return parent;
+        }
+        if (container.nodeType === Node.ELEMENT_NODE && offset > 0) {
+          const prev = container.childNodes[offset - 1];
+          if (prev?.nodeType === Node.ELEMENT_NODE && prev.dataset?.change === "addition") return prev;
+        }
+        return null;
+      }
+
+      function rangeInsideAddition(range) {
+        if (!range) return false;
+        const start = closestChange(range.startContainer, "addition");
+        const end = closestChange(range.endContainer, "addition");
+        return Boolean(start && end && start === end);
+      }
+
+      function rangeTouchesAdditionOnly(range) {
+        return rangeInsideAddition(range) || selectionOnlyContainsAddition(range);
+      }
+
+      function ensureCompositionState() {
+        if (compositionMarker && !editor.contains(compositionMarker)) {
+          resetCompositionState();
+        }
+      }
+
+      function resetCompositionState(options = {}) {
+        window.clearTimeout(compositionFallbackTimer);
+        if (options.removeMarker && compositionMarker?.parentNode) compositionMarker.remove();
+        compositionMarker = null;
+        compositionText = "";
+        compositionHistory = [];
+      }
+
+      function scheduleCompositionFallback() {
+        window.clearTimeout(compositionFallbackTimer);
+        compositionFallbackTimer = window.setTimeout(() => {
+          if (!compositionMarker) return;
+          const finalText = compositionText || compositionHistory[compositionHistory.length - 1] || "";
+          wrapCompositionText(finalText);
+        }, 2200);
+      }
+
+      function selectionOnlyContainsAddition(range) {
+        if (!range?.toString()) return false;
+        if (rangeInsideAddition(range)) return true;
+        const temp = document.createElement("div");
+        temp.appendChild(range.cloneContents());
+        const plain = temp.textContent;
+        const additionsText = Array.from(temp.querySelectorAll("[data-change='addition']")).map(el => el.textContent).join("");
+        return plain.length > 0 && plain === additionsText;
+      }
+
+      function deleteSelectionAsSuggestion(recordUndo = true) {
+        const range = getSelectionRange();
+        if (!range || range.collapsed) return false;
+        if (recordUndo) pushUndoSnapshot();
+        if (selectionOnlyContainsAddition(range)) {
+          range.deleteContents();
+          normalizeSuggestions();
+          updateWordCount();
+          return true;
+        }
+        const feedbackContext = feedbackContextForRange(range);
+        if (!feedbackContext) {
+          const preserved = deleteRangePreservingFeedback(range);
+          if (preserved) {
+            if (preserved.lastInserted) placeCaretAfter(preserved.lastInserted);
+            normalizeSuggestions();
+            renderTeacherComments(preserved.activeId);
+            updateWordCount();
+            return true;
+          }
+        }
+        const deletion = createChangeSpan("deletion", range.toString());
+        range.deleteContents();
+        range.insertNode(deletion);
+        const inserted = keepFeedbackOnInsertedChange(deletion, feedbackContext);
+        placeCaretAfter(inserted);
+        normalizeSuggestions();
+        renderTeacherComments(feedbackContext?.id || "");
+        updateWordCount();
+        return true;
+      }
+
+      function deleteRangeAsSuggestion(range, direction) {
+        if (!range || range.collapsed) return false;
+        if (selectionOnlyContainsAddition(range)) {
+          const add = closestChange(range.startContainer, "addition") || closestChange(range.endContainer, "addition");
+          range.deleteContents();
+          if (add && !add.textContent) {
+            const fallback = document.createTextNode("");
+            add.replaceWith(fallback);
+            const caret = document.createRange();
+            caret.setStart(fallback, 0);
+            caret.collapse(true);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(caret);
+          } else if (add && direction === "backward") {
+            placeCaretAfter(add);
+          } else if (add) {
+            placeCaretBefore(add);
+          }
+          normalizeSuggestions();
+          updateWordCount();
+          return true;
+        }
+
+        const text = range.toString();
+        if (!text) return false;
+        const feedbackContext = feedbackContextForRange(range);
+        if (!feedbackContext) {
+          const preserved = deleteRangePreservingFeedback(range);
+          if (preserved) {
+            if (preserved.lastInserted) placeCaretAfter(preserved.lastInserted);
+            normalizeSuggestions();
+            renderTeacherComments(preserved.activeId);
+            updateWordCount();
+            return true;
+          }
+        }
+        range.deleteContents();
+        const deletion = createChangeSpan("deletion", text);
+        range.insertNode(deletion);
+        const inserted = keepFeedbackOnInsertedChange(deletion, feedbackContext);
+
+        const prev = inserted.previousSibling;
+        const next = inserted.nextSibling;
+        if (direction === "backward" && next?.nodeType === Node.ELEMENT_NODE && next.dataset?.change === "deletion") {
+          next.textContent = inserted.textContent + next.textContent;
+          inserted.remove();
+          placeCaretBefore(next);
+        } else if (direction === "forward" && prev?.nodeType === Node.ELEMENT_NODE && prev.dataset?.change === "deletion") {
+          prev.textContent += inserted.textContent;
+          inserted.remove();
+          placeCaretAfter(prev);
+        } else if (direction === "backward") {
+          placeCaretBefore(inserted);
+        } else {
+          placeCaretAfter(inserted);
+        }
+        normalizeSuggestions();
+        renderTeacherComments(feedbackContext?.id || "");
+        updateWordCount();
+        return true;
+      }
+
+      function insertSuggestion(text, options = {}) {
+        if (!text) return false;
+        const range = getSelectionRange();
+        if (!range) return false;
+        if (options.typing) pushTypingUndoSnapshot();
+        else pushUndoSnapshot();
+        if (range.collapsed) {
+          const existing = additionBeforeCaret();
+          if (existing) {
+            existing.textContent += text;
+            placeCaretAfter(existing);
+            normalizeSuggestions();
+            updateWordCount();
+            return true;
+          }
+        } else {
+          deleteSelectionAsSuggestion(false);
+        }
+        const activeRange = getSelectionRange();
+        if (!activeRange) return false;
+        const addition = createChangeSpan("addition", text);
+        activeRange.insertNode(addition);
+        placeCaretAfter(addition);
+        normalizeSuggestions();
+        hideFeedbackPopover();
+        updateWordCount();
+        return true;
+      }
+
+      function createCompositionMarker() {
+        const marker = document.createElement("span");
+        marker.dataset.compositionMarker = "true";
+        marker.contentEditable = "false";
+        marker.setAttribute("aria-hidden", "true");
+        marker.style.display = "inline-block";
+        marker.style.width = "0";
+        marker.style.overflow = "hidden";
+        marker.style.lineHeight = "0";
+        return marker;
+      }
+
+      function startCompositionSuggestion() {
+        ensureCompositionState();
+        if (mode !== "suggesting" || compositionMarker) return;
+        const range = getSelectionRange();
+        if (!range) return;
+        if (rangeTouchesAdditionOnly(range)) {
+          pushTypingUndoSnapshot();
+          return;
+        }
+        pushTypingUndoSnapshot();
+        if (!range.collapsed) deleteSelectionAsSuggestion(false);
+        const activeRange = getSelectionRange();
+        if (!activeRange) return;
+        const marker = createCompositionMarker();
+        activeRange.insertNode(marker);
+        compositionMarker = marker;
+        compositionText = "";
+        compositionHistory = [];
+        placeCaretAfter(marker);
+        hideFeedbackPopover();
+        scheduleCompositionFallback();
+      }
+
+      function updateCompositionSuggestion(event) {
+        ensureCompositionState();
+        if (mode !== "suggesting" || !compositionMarker) return;
+        if (event?.data) {
+          compositionText = event.data;
+          compositionHistory.push(event.data);
+        }
+        scheduleCompositionFallback();
+      }
+
+      function consumeCompositionTextAfter(node, text) {
+        if (!node || node.nodeType !== Node.TEXT_NODE || !text) return false;
+        const exactIndex = node.nodeValue.indexOf(text);
+        if (exactIndex < 0) return false;
+        const maxLeadingResidue = Math.max(2, text.length);
+        if (exactIndex > maxLeadingResidue) return false;
+        node.nodeValue = node.nodeValue.slice(exactIndex + text.length);
+        if (!node.nodeValue) node.remove();
+        return true;
+      }
+
+      function consumeCompositionTextBefore(node, text) {
+        if (!node || node.nodeType !== Node.TEXT_NODE || !text) return false;
+        const exactIndex = node.nodeValue.lastIndexOf(text);
+        if (exactIndex < 0) return false;
+        const trailingResidue = node.nodeValue.length - (exactIndex + text.length);
+        const maxTrailingResidue = Math.max(2, text.length);
+        if (trailingResidue > maxTrailingResidue) return false;
+        node.nodeValue = node.nodeValue.slice(0, exactIndex);
+        if (!node.nodeValue) node.remove();
+        return true;
+      }
+
+      function wrapCompositionText(text) {
+        ensureCompositionState();
+        window.clearTimeout(compositionFallbackTimer);
+        const marker = compositionMarker;
+        compositionMarker = null;
+        compositionText = "";
+        compositionHistory = [];
+        if (!marker?.parentNode) return;
+        const finalText = text || "";
+        if (!finalText) {
+          marker.remove();
+          return;
+        }
+        const addition = createChangeSpan("addition", finalText);
+        const next = marker.nextSibling;
+        if (consumeCompositionTextAfter(next, finalText)) {
+          marker.replaceWith(addition);
+          normalizeSuggestions();
+          placeCaretAfter(addition);
+          updateWordCount();
+          return;
+        }
+        const prev = marker.previousSibling;
+        if (consumeCompositionTextBefore(prev, finalText)) {
+          marker.before(addition);
+          marker.remove();
+          normalizeSuggestions();
+          placeCaretAfter(addition);
+          updateWordCount();
+          return;
+        }
+        marker.replaceWith(addition);
+        normalizeSuggestions();
+        placeCaretAfter(addition);
+        updateWordCount();
+      }
+
+      function finishCompositionSuggestion(event) {
+        ensureCompositionState();
+        if (!compositionMarker) return;
+        if (event?.data) {
+          compositionText = event.data;
+          compositionHistory.push(event.data);
+        }
+        const finalText = compositionText || compositionHistory[compositionHistory.length - 1] || "";
+        window.clearTimeout(compositionFallbackTimer);
+        window.setTimeout(() => {
+          wrapCompositionText(finalText);
+        }, 0);
+      }
+
+      function deleteSuggestion(direction) {
+        const range = getSelectionRange();
+        if (!range) return false;
+        if (!range.collapsed) return deleteSelectionAsSuggestion();
+        const targetRange = characterRange(direction);
+        if (targetRange) pushUndoSnapshot();
+        return deleteRangeAsSuggestion(targetRange, direction) || true;
+      }
+
+      function isImeKey(event) {
+        return event.isComposing || event.key === "Process" || event.key === "Dead" || event.keyCode === 229;
+      }
+
+      function handleSuggestionBeforeInput(event) {
+        if (mode !== "suggesting") return;
+        ensureCompositionState();
+        const range = getSelectionRange();
+        if (!range) return;
+        const inputType = event.inputType || "";
+        if (compositionMarker && !event.isComposing && inputType !== "insertCompositionText") {
+          const finalText = compositionText || compositionHistory[compositionHistory.length - 1] || event.data || "";
+          event.preventDefault();
+          wrapCompositionText(finalText);
+          return;
+        }
+        if (rangeTouchesAdditionOnly(range)) {
+          if (inputType.startsWith("delete") || inputType === "historyUndo" || inputType === "historyRedo") {
+            pushUndoSnapshot();
+            return;
+          }
+          if (inputType.startsWith("insert")) {
+            pushTypingUndoSnapshot();
+            return;
+          }
+        }
+        if (event.isComposing || inputType === "insertCompositionText") {
+          if (event.data) {
+            compositionText = event.data;
+            compositionHistory.push(event.data);
+          }
+          return;
+        }
+        if (inputType === "insertText") {
+          if (event.data == null) return;
+          event.preventDefault();
+          insertSuggestion(event.data, { typing: true });
+          return;
+        }
+        if (inputType === "insertParagraph" || inputType === "insertLineBreak") {
+          event.preventDefault();
+          insertSuggestion("\n", { typing: true });
+          return;
+        }
+        if (inputType === "deleteContentBackward") {
+          event.preventDefault();
+          deleteSuggestion("backward");
+          return;
+        }
+        if (inputType === "deleteContentForward") {
+          event.preventDefault();
+          deleteSuggestion("forward");
+        }
+      }
+
+      function handleSuggestionKeydown(event) {
+        ensureCompositionState();
+        const range = getSelectionRange();
+        const isUndo = (event.metaKey || event.ctrlKey) && !event.shiftKey && event.key.toLowerCase() === "z";
+        if (isUndo && mode === "suggesting") {
+          event.preventDefault();
+          undoEditorChange();
+          return;
+        }
+        if (mode !== "suggesting") return;
+        if (compositionMarker) return;
+        if (isImeKey(event)) return;
+        if (!range || event.metaKey || event.ctrlKey || event.altKey) return;
+        if (rangeTouchesAdditionOnly(range)) {
+          if (event.key === "Backspace" || event.key === "Delete") {
+            pushUndoSnapshot();
+          } else if (event.key === "Enter" || event.key.length === 1) {
+            pushTypingUndoSnapshot();
+          }
+          return;
+        }
+        if (event.key === "Backspace") {
+          event.preventDefault();
+          deleteSuggestion("backward");
+          return;
+        }
+        if (event.key === "Delete") {
+          event.preventDefault();
+          deleteSuggestion("forward");
+          return;
+        }
+        if (event.key === "Enter") {
+          event.preventDefault();
+          insertSuggestion("\n");
+          return;
+        }
+      }
+
+      function removeEmptyChange(element) {
+        if (element && element.textContent.length === 0) element.remove();
+      }
+
+      function removeEmptyFeedbackNode(element) {
+        if (element && element.textContent.length === 0) element.remove();
+      }
+
+      function normalizeSuggestions() {
+        mergeAdjacent("[data-change='addition']");
+        mergeAdjacent("[data-change='deletion']");
+        editor.querySelectorAll("[data-change]").forEach(syncChangeEditableState);
+        editor.querySelectorAll("[data-change]").forEach(removeEmptyChange);
+        editor.querySelectorAll(".feedback-node[data-feedback-type]").forEach(removeEmptyFeedbackNode);
+      }
+
+      function mergeAdjacent(selector) {
+        Array.from(editor.querySelectorAll(selector)).forEach(node => {
+          let next = node.nextSibling;
+          while (next && next.nodeType === Node.TEXT_NODE && next.textContent === "") {
+            const remove = next;
+            next = next.nextSibling;
+            remove.remove();
+          }
+          if (next?.nodeType === Node.ELEMENT_NODE && next.matches(selector)) {
+            node.textContent += next.textContent;
+            next.remove();
+          }
+        });
+      }
+
+      function maybeShowFeedbackPopover() {
+        window.setTimeout(() => {
+          if (suppressSelectionPopover) return;
+          if (editingFeedbackId) return;
+          const range = getSelectionRange();
+          const selectedText = range ? range.toString().trim() : "";
+          if (!range || !selectedText) {
+            savedRange = null;
+            hideFeedbackPopover();
+            return;
+          }
+          if (range.collapsed || closestFeedbackNode(range.commonAncestorContainer) || rangeContainsFeedbackNode(range)) return;
+          savedRange = range.cloneRange();
+          setPendingFeedbackHighlight(savedRange);
+          setFeedbackPopoverMode("add");
+          positionFeedbackPopover(range);
+        }, 0);
+      }
+
+      function positionFeedbackPopover(range) {
+        positionFeedbackPopoverByRect(range.getBoundingClientRect());
+      }
+
+      function positionFeedbackPopoverByRect(rect) {
+        const margin = 12;
+        const width = Math.min(320, window.innerWidth - 24);
+        const height = Math.min(480, window.innerHeight - 24);
+        let left = rect.left - width - margin;
+        if (left < margin) left = rect.right + margin;
+        if (left + width > window.innerWidth - margin) left = window.innerWidth - width - margin;
+        let top = rect.top;
+        if (top + height > window.innerHeight - margin) top = window.innerHeight - height - margin;
+        if (top < margin) top = margin;
+        feedbackPopover.style.left = `${left}px`;
+        feedbackPopover.style.top = `${top}px`;
+        feedbackPopover.classList.add("open");
+      }
+
+      function positionFeedbackPopoverLeftOfEditor(anchorRect) {
+        const margin = 12;
+        const width = Math.min(320, window.innerWidth - 24);
+        const height = Math.min(480, window.innerHeight - 24);
+        const editorRect = editor.getBoundingClientRect();
+        const sidebarRect = sidebar?.getBoundingClientRect?.();
+        let left = editorRect.left - width - margin;
+        if (sidebarRect && sidebarRect.right <= editorRect.left && sidebarRect.width >= width + margin) {
+          left = sidebarRect.right - width;
+        }
+        if (left < margin) left = margin;
+        if (left + width > window.innerWidth - margin) left = window.innerWidth - width - margin;
+        let top = anchorRect.top;
+        if (top + height > window.innerHeight - margin) top = window.innerHeight - height - margin;
+        if (top < margin) top = margin;
+        feedbackPopover.style.left = `${left}px`;
+        feedbackPopover.style.top = `${top}px`;
+        feedbackPopover.classList.add("open");
+      }
+
+      function setFeedbackPopoverMode(popoverMode) {
+        const isEdit = popoverMode === "edit";
+        feedbackPopoverTitle.textContent = isEdit ? "Edit feedback" : "Add feedback";
+        applyFeedbackBtn.textContent = isEdit ? "Save changes" : "Apply";
+        quickNotes.classList.toggle("hidden", isEdit);
+        removeFeedbackBtn.classList.toggle("hidden", !isEdit);
+      }
+
+      function hideFeedbackPopover() {
+        window.clearTimeout(feedbackClickTimer);
+        feedbackPopover.classList.remove("open");
+        editingFeedbackId = "";
+        clearPendingFeedbackHighlight();
+        editor.querySelectorAll(".feedback-node.comment-active").forEach(node => node.classList.remove("comment-active"));
+        commentList.querySelectorAll(".comment-card.active").forEach(card => card.classList.remove("active"));
+        setFeedbackPopoverMode("add");
+      }
+
+      function createFeedbackWrapper(type, id, note) {
+        const wrapper = document.createElement("span");
+        wrapper.className = `feedback-node fb-${type}`;
+        wrapper.dataset.feedbackType = type;
+        wrapper.dataset.feedbackId = id;
+        wrapper.dataset.feedbackNote = note;
+        return wrapper;
+      }
+
+      function isBlockNode(node) {
+        if (node.nodeType !== Node.ELEMENT_NODE) return false;
+        return /^(ADDRESS|ARTICLE|ASIDE|BLOCKQUOTE|DIV|DL|FIELDSET|FIGCAPTION|FIGURE|FOOTER|FORM|H[1-6]|HEADER|HR|LI|MAIN|NAV|OL|P|PRE|SECTION|TABLE|UL)$/i.test(node.tagName);
+      }
+
+      function wrapInlineFeedbackRuns(container, type, id, note) {
+        const originalChildren = Array.from(container.childNodes);
+        const output = document.createDocumentFragment();
+        let run = null;
+
+        function appendInline(node) {
+          if (!run) {
+            run = createFeedbackWrapper(type, id, note);
+            output.appendChild(run);
+          }
+          run.appendChild(node);
+        }
+
+        for (const child of originalChildren) {
+          if (isBlockNode(child)) {
+            run = null;
+            wrapInlineFeedbackRuns(child, type, id, note);
+            output.appendChild(child);
+          } else if (child.nodeType === Node.TEXT_NODE && !child.textContent) {
+            output.appendChild(child);
+          } else {
+            appendInline(child);
+          }
+        }
+
+        container.replaceChildren(output);
+      }
+
+      function applyFeedback() {
+        if (editingFeedbackId) {
+          const id = editingFeedbackId;
+          const group = findFeedbackGroup(id);
+          if (!group) {
+            hideFeedbackPopover();
+            return;
+          }
+          pushUndoSnapshot();
+          const type = feedbackType.value;
+          const note = feedbackNote.value.trim();
+          group.nodes.forEach(node => {
+            setFeedbackNodeType(node, type);
+            node.dataset.feedbackNote = note;
+          });
+          renderTeacherComments(id);
+          focusFeedbackGroup(id);
+          hideFeedbackPopover();
+          updateWordCount();
+          showMessage("Feedback updated");
+          return;
+        }
+        if (!savedRange || !savedRange.toString().trim()) {
+          hideFeedbackPopover();
+          return;
+        }
+        const type = feedbackType.value;
+        const id = nextFeedbackId();
+        const note = feedbackNote.value.trim();
+        pushUndoSnapshot();
+        clearPendingFeedbackHighlight();
+        const selectedContents = savedRange.extractContents();
+        wrapInlineFeedbackRuns(selectedContents, type, id, note);
+        const lastInserted = selectedContents.lastChild;
+        savedRange.insertNode(selectedContents);
+        if (lastInserted) placeCaretAfter(lastInserted);
+        savedRange = null;
+        feedbackNote.value = "";
+        hideFeedbackPopover();
+        renderTeacherComments(id);
+        focusFeedbackGroup(id);
+        updateWordCount();
+      }
+
+      function readFileAsDataUrl(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function renderImage() {
+        if (!taskImage) {
+          imagePreview.textContent = "Upload or paste image(s) for the writing prompt.";
+          promptImage.innerHTML = "";
+          promptImage.classList.add("hidden");
+          contentLayout.classList.remove("with-image", "image-left", "image-top");
+          return;
+        }
+        const img = `<img src="${escapeAttr(taskImage)}" alt="Writing task visual prompt">`;
+        imagePreview.innerHTML = img;
+        promptImage.innerHTML = img;
+        promptImage.classList.remove("hidden");
+        contentLayout.classList.add("with-image");
+        contentLayout.classList.toggle("image-left", layoutSelect.value === "image-left");
+        contentLayout.classList.toggle("image-top", layoutSelect.value === "image-top");
+      }
+
+      function getSession() {
+        ensureFeedbackIds();
+        return {
+          version: 4,
+          title: document.getElementById("docTitle").value,
+          studentName: document.getElementById("studentName").value,
+          taskPrompt: document.getElementById("taskPrompt").value,
+          taskImage,
+          includeWatermark: false,
+          scores: getBandScores(),
+          layout: layoutSelect.value,
+          mode,
+          editorHtml: utoa(sanitizeEditorHtml(editor.innerHTML))
+        };
+      }
+
+      function loadSession(session) {
+        document.getElementById("docTitle").value = session.title || "Writing Feedback";
+        document.getElementById("studentName").value = session.studentName || "";
+        document.getElementById("taskPrompt").value = session.taskPrompt || "";
+        applyBandScores(session.scores || {});
+        taskImage = session.taskImage || "";
+        layoutSelect.value = session.layout || "image-left";
+        
+        let rawHtml = session.editorHtml || "";
+        if (rawHtml && !rawHtml.includes("<p>") && !rawHtml.includes("<span>")) {
+          try {
+            rawHtml = atou(rawHtml);
+          } catch(e) {
+            rawHtml = window.decodeURIComponent(rawHtml);
+          }
+        }
+        editor.innerHTML = sanitizeEditorHtml(rawHtml);
+        
+        undoStack = [];
+        updateUndoButton();
+        setMode(session.mode === "suggesting" ? "suggesting" : "editing");
+        renderImage();
+        renderTeacherComments();
+        updateWordCount();
+        showMessage("Session loaded");
+      }
+
+      function downloadFile(filename, type, content) {
+        const blob = new Blob([content], { type });
+        downloadBlob(filename, blob);
+      }
+
+      function downloadBlob(filename, blob) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        showBackupLink(filename, url);
+        window.setTimeout(() => URL.revokeObjectURL(url), 120000);
+      }
+
+      function showBackupLink(filename, url) {
+        backupLinks.classList.add("open");
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        link.textContent = `Download ${filename}`;
+        backupLinks.replaceChildren(document.createTextNode("If the download did not start: "), link);
+      }
+
+      function buildOfflineAppHtml() {
+        const clone = document.documentElement.cloneNode(true);
+        const liveFields = Array.from(document.querySelectorAll("input, textarea, select"));
+        const cloneFields = Array.from(clone.querySelectorAll("input, textarea, select"));
+        liveFields.forEach((field, index) => {
+          const copy = cloneFields[index];
+          if (!copy) return;
+          if (field.tagName === "TEXTAREA") {
+            copy.textContent = field.value;
+            return;
+          }
+          if (field.tagName === "SELECT") {
+            Array.from(copy.options).forEach(option => {
+              if (option.value === field.value) option.setAttribute("selected", "");
+              else option.removeAttribute("selected");
+            });
+            return;
+          }
+          if (field.type === "checkbox" || field.type === "radio") {
+            if (field.checked) copy.setAttribute("checked", "");
+            else copy.removeAttribute("checked");
+            return;
+          }
+          if (field.type === "file") {
+            copy.removeAttribute("value");
+            return;
+          }
+          copy.setAttribute("value", field.value);
+        });
+        const backup = clone.querySelector("#backupLinks");
+        if (backup) {
+          backup.classList.remove("open");
+          backup.replaceChildren();
+        }
+        return "<!doctype html>\n" + clone.outerHTML;
+      }
+
+      function downloadOfflineApp() {
+        const title = document.getElementById("docTitle").value || "writing-feedback";
+        const filename = slugify(title) + "-offline-app.html";
+        downloadFile(filename, "text/html;charset=utf-8", buildOfflineAppHtml());
+        showMessage("Offline app downloaded");
+      }
+
+      function feedbackLabel(type) {
+        const found = feedbackTypes.find(([id]) => id === canonicalFeedbackType(type));
+        return found ? found[1] : "Feedback";
+      }
+
+      function nearestStaticCommentBlock(node) {
+        let current = node.parentElement;
+        while (current) {
+          if (isBlockNode(current)) return current;
+          current = current.parentElement;
+        }
+        return node.parentElement;
+      }
+
+      function buildStaticFeedback(sourceHtml) {
+        const template = document.createElement("template");
+        template.innerHTML = sanitizeEditorHtml(sourceHtml);
+        const seenComments = new Map();
+        const comments = [];
+        let commentNumber = 0;
+        Array.from(template.content.querySelectorAll(".feedback-node[data-feedback-type]")).forEach((node, index) => {
+          const type = canonicalFeedbackType(node.dataset.feedbackType);
+          setFeedbackNodeType(node, type);
+          const note = node.dataset.feedbackNote || "No explanation was added.";
+          const label = feedbackLabel(type);
+          const id = node.dataset.feedbackId || `static-${index}`;
+          if (!seenComments.has(id)) {
+            commentNumber += 1;
+            seenComments.set(id, {
+              number: commentNumber,
+              domId: `static-comment-${commentNumber}`,
+              type,
+              label,
+              note,
+              rendered: false
+            });
+          }
+          const comment = seenComments.get(id);
+          node.dataset.commentAnchor = comment.domId;
+          const marker = document.createElement("sup");
+          marker.className = "comment-marker";
+          marker.dataset.commentId = comment.domId;
+          
+          // Thêm inline style trực tiếp cho các comment marker SUP để tương thích Moodle
+          marker.style.cssText = "display:inline-grid!important; place-items:center!important; min-width:1.55em!important; height:1.55em!important; margin-left:4px!important; border-radius:999px!important; background:#111827!important; color:#fff!important; font-size:.68em!important; font-weight:900!important; line-height:1!important; vertical-align:super!important; box-shadow:0 0 0 2px #fff,0 1px 4px rgba(15,23,42,.25)!important; font-style:normal!important; cursor:pointer!important;";
+          marker.textContent = comment.number;
+          node.appendChild(marker);
+          if (comment.rendered) return;
+          comment.rendered = true;
+          comments.push(comment);
+        });
+        return {
+          writingHtml: template.innerHTML,
+          commentsHtml: buildStaticCommentSummary(comments)
+        };
+      }
+
+      function buildStaticCommentSummary(comments) {
+        if (!comments.length) return "";
+        const bgColors = { grammar: "#dbeafe", vocabulary: "#fef3c7", spelling: "#ffedd5", coherence: "#ede9fe", task: "#cffafe", style: "#f1f5f9", idea: "#ecfccb" };
+        const borderStyles = { grammar: "dotted", vocabulary: "solid", spelling: "dashed", coherence: "double", task: "solid", style: "dashed", idea: "solid" };
+        const textColors = { grammar: "#1d4ed8", vocabulary: "#92400e", spelling: "#9a3412", coherence: "#6d28d9", task: "#0e7490", style: "#334155", idea: "#3f6212" };
+
+        const cards = comments.map(comment => {
+          const bg = bgColors[comment.type] || "#f1f5f9";
+          const border = borderStyles[comment.type] || "solid";
+          const color = textColors[comment.type] || "#334155";
+          return `
+            <li class="comment-card" id="${comment.domId}" style="border: 1px solid ${color}!important; border-left-width: 5px!important; border-style: ${border}!important; border-radius: 10px!important; padding: 10px 12px!important; margin-bottom: 10px!important; background-color: ${bg}!important; list-style: none!important; box-sizing: border-box!important; transition: all 0.2s ease-in-out;">
+              <strong style="display: flex!important; align-items: center!important; gap: 8px!important; margin-bottom: 6px!important; font-size: 13px!important; line-height: 1.25!important; color: ${color}!important;">
+                <span style="display: grid!important; place-items: center!important; min-width: 26px!important; height: 26px!important; border-radius: 999px!important; background: #111827!important; color: #fff!important; border: 2px solid #fff!important; box-shadow: 0 1px 4px rgba(15,23,42,.22)!important; font-size: 12px!important; font-weight: 900!important;">${comment.number}</span>
+                ${escapeHtml(comment.label)}
+              </strong>
+              <p style="margin: 0!important; color: #1f2937!important; font-size: 13px!important; line-height: 1.45!important; font-weight: normal!important;">${escapeHtml(comment.note)}</p>
+            </li>
+          `;
+        }).join("");
+
+        return `
+          <section class="comment-summary" style="background: #fff!important; border: 1px solid #d9dee7!important; border-radius: 12px!important; padding: 18px!important; box-shadow: 0 8px 24px rgba(15,23,42,.06)!important; box-sizing: border-box!important; width: 100%;">
+            <div class="comment-summary-head" style="display: flex!important; align-items: center!important; justify-content: space-between!important; gap: 12px!important; margin-bottom: 14px!important;">
+              <h2 style="margin: 0!important; font-size: 16px!important; line-height: 1.2!important; font-weight: bold!important; color: #1f2937!important;">Teacher feedback</h2>
+              <span style="color: #667085!important; font-size: 12px!important; font-weight: 800!important;">${comments.length} ${comments.length === 1 ? "comment" : "comments"}</span>
+            </div>
+            <ol class="comment-summary-list" style="margin: 0!important; padding: 0!important; display: flex!important; flex-direction: column!important; gap: 10px!important; list-style: none!important;">${cards}</ol>
+          </section>
+        `;
+      }
+
+      function buildStudentDocument(format = "html") {
+        const session = getSession();
+        let rawHtml = session.editorHtml || "";
+        if (rawHtml.substring(0, 3) === "%3C") {
+          rawHtml = window.decodeURIComponent(rawHtml);
+        } else {
+          try { rawHtml = atou(rawHtml); } catch(e) {}
+        }
+
+        const hasImage = Boolean(session.taskImage);
+        const staticFeedback = buildStaticFeedback(rawHtml);
+
+        const processedTemplate = document.createElement("div");
+        processedTemplate.innerHTML = staticFeedback.writingHtml;
+        
+        const styleRules = {
+          "fb-grammar": "background: #dbeafe!important; color: #1d4ed8!important; border: 1px dotted #60a5fa!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-vocabulary": "background: #fef3c7!important; color: #92400e!important; border: 1px solid #f59e0b!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-spelling": "background: #ffedd5!important; color: #9a3412!important; border: 1px dashed #fb923c!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-coherence": "background: #ede9fe!important; color: #6d28d9!important; border: 1px double #a78bfa!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-task": "background: #cffafe!important; color: #0e7490!important; border: 2px solid #0891b2!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-style": "background: #f1f5f9!important; color: #334155!important; border: 1px dashed #64748b!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;",
+          "fb-idea": "background: #ecfccb!important; color: #3f6212!important; border: 1px solid #84cc16!important; border-bottom-width: 2px!important; border-radius: 5px!important; padding: 1px 3px!important; -webkit-box-decoration-break: clone!important; box-decoration-break: clone!important; transition: outline 0.15s ease-in-out;"
+        };
+
+        processedTemplate.querySelectorAll(".feedback-node").forEach(node => {
+          let matchedClass = Array.from(node.classList).find(cls => styleRules[cls]);
+          if (matchedClass) {
+            node.setAttribute("style", styleRules[matchedClass]);
+          }
+        });
+
+        processedTemplate.querySelectorAll(".suggest-add").forEach(node => {
+          node.setAttribute("style", "color: #16a34a!important; white-space: pre-wrap!important; font-weight: bold!important;");
+        });
+
+        processedTemplate.querySelectorAll(".suggest-delete").forEach(node => {
+          node.setAttribute("style", "color: #dc2626!important; text-decoration: line-through!important; text-decoration-thickness: 2px!important; background: #fef2f2!important; white-space: pre-wrap!important;");
+        });
+
+        // Thiết lập hai cột song song (Side-by-side) khi có nhận xét
+        const layoutStructureHtml = staticFeedback.commentsHtml ? `
+          <div class="moodle-student-layout" style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; width: 100%; box-sizing: border-box;">
+            <!-- Cột viết của học sinh (Bên trái) -->
+            <article class="writing" style="flex: 1; min-width: 320px; background: #fff; border: 1px solid #d9dee7; border-radius: 12px; padding: 28px 24px; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; min-height: 380px; position: relative; box-sizing: border-box;">
+              <div class="writing-content" style="position: relative; z-index: 1;">${processedTemplate.innerHTML}</div>
+            </article>
+            
+            <!-- Cột nhận xét (Bên phải, rộng 320px) -->
+            <div class="moodle-comments-column" style="width: 320px; flex-shrink: 0; box-sizing: border-box;">
+              ${staticFeedback.commentsHtml}
+            </div>
+          </div>
+        ` : `
+          <article class="writing" style="width: 100%; background: #fff; border: 1px solid #d9dee7; border-radius: 12px; padding: 28px 24px; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; min-height: 380px; position: relative; box-sizing: border-box;">
+            <div class="writing-content" style="position: relative; z-index: 1;">${processedTemplate.innerHTML}</div>
+          </article>
+        `;
+
+        const hoverInteractionScript = staticFeedback.commentsHtml ? `
+          <script>
+            (function() {
+              var nodes = document.querySelectorAll('.feedback-node');
+              var cards = document.querySelectorAll('.comment-card');
+
+              nodes.forEach(function(node) {
+                var anchorId = node.getAttribute('data-comment-anchor');
+                var card = document.getElementById(anchorId);
+                if (!card) return;
+
+                node.addEventListener('mouseenter', function() {
+                  card.style.transform = 'translateY(-3px)';
+                  card.style.boxShadow = '0 0 0 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.12)';
+                  card.style.borderColor = '#0f172a';
+                  node.style.filter = 'brightness(0.92)';
+                });
+
+                node.addEventListener('mouseleave', function() {
+                  card.style.transform = '';
+                  card.style.boxShadow = '';
+                  card.style.borderColor = '';
+                  node.style.filter = '';
+                });
+              });
+
+              cards.forEach(function(card) {
+                var cardId = card.getAttribute('id');
+                var matchedNodes = document.querySelectorAll('.feedback-node[data-comment-anchor="' + cardId + '"]');
+                if (!matchedNodes.length) return;
+
+                card.addEventListener('mouseenter', function() {
+                  matchedNodes.forEach(function(node) {
+                    node.style.outline = '3px solid rgba(15, 23, 42, 0.18)';
+                    node.style.outlineOffset = '2px';
+                  });
+                  card.style.transform = 'translateY(-3px)';
+                  card.style.boxShadow = '0 0 0 3px rgba(15, 23, 42, 0.08), 0 8px 24px rgba(15, 23, 42, 0.12)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                  matchedNodes.forEach(function(node) {
+                    node.style.outline = '';
+                    node.style.outlineOffset = '';
+                  });
+                  card.style.transform = '';
+                  card.style.boxShadow = '';
+                });
+
+                // Nhấp vào thẻ nhận xét sẽ cuộn màn hình đến phần viết tương ứng
+                card.addEventListener('click', function() {
+                  matchedNodes[0].scrollIntoView({ block: 'center', behavior: 'smooth' });
+                });
+              });
+            })();
+          <\/script>
+        ` : '';
+
+        return `
+          <div class="student-export-root" style="max-width: 1180px; margin: 0 auto; padding: 20px; background: #f6f7f9; color: #1f2937; font-family: Arial, Helvetica, sans-serif; line-height: 1.65; border-radius: 16px; border: 1px solid #d9dee7; box-sizing: border-box;">
+            <section class="header" style="margin-bottom: 18px; border-bottom: 2px solid #d9dee7; padding-bottom: 10px;">
+              <h1 style="margin: 0 0 6px; font-size: 26px; line-height: 1.2; color: #0f172a; font-weight: bold;">${escapeHtml(session.title || "Writing Feedback")}</h1>
+              <div class="meta" style="color: #667085; font-size: 14px; font-weight: bold;">${session.studentName ? `Student: ${escapeHtml(session.studentName)}` : ""}</div>
+            </section>
+            
+            ${session.taskPrompt ? `<section class="prompt" style="white-space: pre-wrap; background: #fff; border: 1px solid #d9dee7; border-radius: 10px; padding: 14px 16px; margin: 14px 0; font-size: 14px; color: #334155; box-sizing: border-box;"><strong>Task Prompt:</strong><br>${escapeHtml(session.taskPrompt)}</section>` : ""}
+            
+            ${buildScoreSummaryHtml(session.scores || {})}
+            
+            <div class="content-body-stack" style="display: flex; flex-direction: column; gap: 20px; margin-top: 15px;">
+              ${hasImage ? `<div class="task-image" style="display: flex; justify-content: center; background: #fff; padding: 10px; border: 1px solid #d9dee7; border-radius: 10px; box-sizing: border-box;"><img src="${escapeAttr(session.taskImage)}" alt="Visual Prompt" style="max-width: 100%; height: auto; object-fit: contain; border-radius: 6px;"></div>` : ""}
+              
+              <div class="writing-stack" style="display: flex; flex-direction: column; gap: 14px; width: 100%;">
+                <div class="legend" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 4px;">
+                  ${feedbackTypes.map(([id, label]) => `<span class="fb-${id}" style="border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 11px; font-weight: bold; ${styleRules['fb-' + id]}">${escapeHtml(label)}</span>`).join("")}
+                </div>
+                
+                ${layoutStructureHtml}
+              </div>
+            </div>
+          </div>
+          ${hoverInteractionScript}
+        `;
+      }
+
+      function exportStudentHtml() {
+        const studentHtml = buildStudentDocument("html");
+        const title = document.getElementById("docTitle").value || "Writing Feedback";
+        const filename = slugify(title || "writing-feedback") + "-student.html";
+        downloadFile(filename, "text/html;charset=utf-8", studentHtml);
+        showMessage("Student HTML exported");
+      }
+
+      function exportStudentPdf() {
+        const session = getSession();
+        let rawHtml = session.editorHtml || "";
+        if (rawHtml.substring(0, 3) === "%3C") { rawHtml = window.decodeURIComponent(rawHtml); } else { try { rawHtml = atou(rawHtml); } catch(e) {} }
+        const staticFeedback = buildStaticFeedback(rawHtml);
+        
+        const pdfHtml = `<!doctype html>
+        <html>
+        <head>
+          <meta charset="utf-8">
+          <title>${escapeHtml(session.title || "Writing Feedback")}</title>
+          ${exportCss({ staticComments: true })}
+        </head>
+        <body class="student-export student-pdf student-static" style="background:#fff; padding:20px;">
+          <main class="page">
+            <h1>${escapeHtml(session.title || "Writing Feedback")}</h1>
+            <div class="meta">${session.studentName ? `Student: ${escapeHtml(session.studentName)}` : ""}</div>
+            ${session.taskPrompt ? `<div class="prompt">${escapeHtml(session.taskPrompt)}</div>` : ""}
+            ${buildScoreSummaryHtml(session.scores || {})}
+            <div class="content">
+              <div class="writing-stack">
+                <article class="writing static-comments">${staticFeedback.writingHtml}</article>
+                ${staticFeedback.commentsHtml}
+              </div>
+            </div>
+          </main>
+        </body>
+        </html>`;
+
+        const printWindow = window.open("", "_blank");
+        if (!printWindow) {
+          downloadFile(slugify(title) + "-printable-pdf.html", "text/html;charset=utf-8", pdfHtml);
+          showMessage("Popup blocked. Downloaded printable PDF HTML instead.");
+          return;
+        }
+        printWindow.document.open();
+        printWindow.document.write(pdfHtml);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.addEventListener("load", () => {
+          window.setTimeout(() => {
+            printWindow.print();
+          }, 500);
+        });
+        showMessage("PDF print view opened");
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, char => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;"
+        }[char]));
+      }
+
+      function sanitizeEditorHtml(html) {
+        const template = document.createElement("template");
+        template.innerHTML = String(html);
+        template.content.querySelectorAll("script, style, iframe, object, embed, link, meta").forEach(node => node.remove());
+        template.content.querySelectorAll("*").forEach(node => {
+          for (const attr of Array.from(node.attributes)) {
+            const name = attr.name.toLowerCase();
+            const value = attr.value.trim().toLowerCase();
+            if (name.startsWith("on") || value.startsWith("javascript:")) {
+              node.removeAttribute(attr.name);
+            }
+          }
+        });
+        return template.innerHTML;
+      }
+
+      function escapeAttr(value) {
+        return escapeHtml(value).replace(/`/g, "&#96;");
+      }
+
+      function slugify(value) {
+        return String(value).toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "writing-feedback";
+      }
+
+      editingMode.addEventListener("click", () => setMode("editing"));
+      suggestingMode.addEventListener("click", () => setMode("suggesting"));
+      feedbackType.addEventListener("change", renderQuickNotes);
+      scoreGrid.addEventListener("change", updateBandScore);
+      quickNotes.addEventListener("click", event => {
+        const button = event.target.closest("[data-note]");
+        if (!button) return;
+        feedbackNote.value = feedbackNote.value ? `${feedbackNote.value}\n${button.dataset.note}` : button.dataset.note;
+      });
+
+      commentList.addEventListener("click", event => {
+        const card = event.target.closest("[data-comment-id]");
+        if (!card) return;
+        const id = card.dataset.commentId;
+        const action = event.target.closest("[data-action]")?.dataset.action;
+        if (action === "jump") focusFeedbackGroup(id);
+        if (action === "remove") removeFeedbackGroup(id);
+      });
+
+      commentList.addEventListener("change", event => {
+        const card = event.target.closest("[data-comment-id]");
+        if (!card) return;
+        const id = card.dataset.commentId;
+        if (event.target.dataset.action === "type") updateFeedbackGroupType(id, event.target.value);
+        if (event.target.dataset.action === "note") finishCommentEdit(id);
+      });
+
+      commentList.addEventListener("input", event => {
+        const card = event.target.closest("[data-comment-id]");
+        if (!card || event.target.dataset.action !== "note") return;
+        const id = card.dataset.commentId;
+        beginCommentEdit(id);
+        updateFeedbackGroupNote(id, event.target.value);
+      });
+
+      commentList.addEventListener("focusout", event => {
+        const card = event.target.closest("[data-comment-id]");
+        if (card && event.target.dataset.action === "note") finishCommentEdit(card.dataset.commentId);
+      });
+
+      document.querySelectorAll("[data-command]").forEach(button => {
+        button.addEventListener("click", () => {
+          editor.focus();
+          pushUndoSnapshot();
+          document.execCommand(button.dataset.command, false, null);
+          updateWordCount();
+        });
+      });
+      undoBtn.addEventListener("click", undoEditorChange);
+
+      applyFeedbackBtn.addEventListener("click", applyFeedback);
+      document.getElementById("cancelFeedbackBtn").addEventListener("click", () => {
+        savedRange = null;
+        hideFeedbackPopover();
+      });
+      removeFeedbackBtn.addEventListener("click", () => {
+        if (!editingFeedbackId) return;
+        const id = editingFeedbackId;
+        removeFeedbackGroup(id);
+        hideFeedbackPopover();
+        showMessage("Feedback removed");
+      });
+
+      function openFeedbackFromEditorClick(event) {
+        const node = event.target.closest?.(".feedback-node[data-feedback-type]");
+        if (!node) return;
+        const selection = window.getSelection();
+        if (selection && !selection.isCollapsed && editor.contains(selection.anchorNode) && editor.contains(selection.focusNode)) return;
+        ensureFeedbackIds();
+        const feedbackId = node.dataset.feedbackId;
+        suppressSelectionPopover = true;
+        window.clearTimeout(feedbackClickTimer);
+        feedbackClickTimer = window.setTimeout(() => {
+          if (!editor.contains(node)) return;
+          openFeedbackEditPopover(feedbackId, node, {
+            preserveSelection: true,
+            position: "left-of-editor"
+          });
+        }, 45);
+        window.setTimeout(() => {
+          suppressSelectionPopover = false;
+        }, 240);
+      }
+
+      editor.addEventListener("mouseup", maybeShowFeedbackPopover);
+      editor.addEventListener("click", openFeedbackFromEditorClick);
+      editor.addEventListener("keyup", event => {
+        updateWordCount();
+        if (event.key.startsWith("Arrow") || event.key === "Shift") maybeShowFeedbackPopover();
+      });
+      editor.addEventListener("keydown", handleSuggestionKeydown);
+      editor.addEventListener("beforeinput", handleSuggestionBeforeInput);
+      editor.addEventListener("compositionstart", startCompositionSuggestion);
+      editor.addEventListener("compositionupdate", updateCompositionSuggestion);
+      editor.addEventListener("compositionend", finishCompositionSuggestion);
+      editor.addEventListener("input", () => {
+        updateWordCount();
+        if (!compositionMarker) renderTeacherComments();
+      });
+      document.addEventListener("selectionchange", () => {
+        if (document.activeElement === editor) maybeShowFeedbackPopover();
+      });
+
+      editor.addEventListener("paste", event => {
+        const items = Array.from(event.clipboardData?.items || []);
+        const imageItem = items.find(item => item.type.startsWith("image/"));
+        if (imageItem) {
+          event.preventDefault();
+          const file = imageItem.getAsFile();
+          if (file) readFileAsDataUrl(file).then(dataUrl => {
+            taskImage = dataUrl;
+            renderImage();
+            showMessage("Image pasted");
+          });
+          return;
+        }
+        if (mode === "suggesting") {
+          const range = getSelectionRange();
+          if (rangeTouchesAdditionOnly(range)) {
+            pushTypingUndoSnapshot();
+            return;
+          }
+          event.preventDefault();
+          insertSuggestion(event.clipboardData.getData("text/plain"));
+        }
+      });
+
+      document.getElementById("importTextBtn").addEventListener("click", () => {
+        document.getElementById("importTextInput").click();
+      });
+      document.getElementById("importTextInput").addEventListener("change", event => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          pushUndoSnapshot();
+          if (file.type === "text/html" || /\.html?$/i.test(file.name)) editor.innerHTML = sanitizeEditorHtml(String(reader.result));
+          else editor.textContent = String(reader.result);
+          updateWordCount();
+          renderTeacherComments();
+          showMessage("Writing imported");
+        };
+        reader.readAsText(file);
+        event.target.value = "";
+      });
+
+      imageInput.addEventListener("change", async event => {
+        const file = event.target.files[0];
+        if (!file) return;
+        taskImage = await readFileAsDataUrl(file);
+        renderImage();
+        imageInput.value = "";
+        showMessage("Image uploaded");
+      });
+      document.getElementById("removeImageBtn").addEventListener("click", () => {
+        taskImage = "";
+        renderImage();
+      });
+      layoutSelect.addEventListener("change", renderImage);
+
+      document.getElementById("saveSessionBtn").addEventListener("click", () => {
+        const session = getSession();
+        const filename = slugify(session.title || "writing-feedback") + "-session.json";
+        downloadFile(filename, "application/json;charset=utf-8", JSON.stringify(session, null, 2));
+        showMessage("Session saved");
+      });
+
+      document.getElementById("loadSessionBtn").addEventListener("click", () => {
+        document.getElementById("loadSessionInput").click();
+      });
+      document.getElementById("loadSessionInput").addEventListener("change", event => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          try {
+            loadSession(JSON.parse(String(reader.result)));
+          } catch (error) {
+            window.alert("This session file could not be loaded.");
+          }
+        };
+        reader.readAsText(file);
+        event.target.value = "";
+      });
+
+      document.getElementById("exportStudentBtn").addEventListener("click", exportStudentHtml);
+      document.getElementById("exportPdfBtn").addEventListener("click", exportStudentPdf);
+      document.getElementById("downloadAppBtn").addEventListener("click", downloadOfflineApp);
+
+      document.addEventListener("mousedown", event => {
+        if (!feedbackPopover.contains(event.target)) hideFeedbackPopover();
+      });
+
+      setMode("editing");
+      renderImage();
+      renderTeacherComments();
+      updateWordCount();
+      updateUndoButton();
+    })();
+  </script>
+</body>
+</html>
